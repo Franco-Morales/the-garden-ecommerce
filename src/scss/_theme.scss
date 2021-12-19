@@ -1,0 +1,21 @@
+@import "./variables";
+
+$garden-colors: (
+  "main": $main,
+  "leaf": $leaf,
+  "translucid": $translucid
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $garden-colors);
+
+$custom-utilities-colors: $garden-colors;
+
+// Custom the bootstrap table color (ex: table-custom-color)
+$custom-table-colors: $garden-colors;
+
+// Merge the custom colors to the bootstrap default
+$theme-colors: map-merge($theme-colors, $garden-colors);
+$utilities-text-colors: map-merge($utilities-text-colors, $custom-utilities-colors );
+$utilities-bg-colors: map-merge($utilities-bg-colors, $custom-utilities-colors);
+$table-variants: map-merge($table-variants, $custom-table-colors);
