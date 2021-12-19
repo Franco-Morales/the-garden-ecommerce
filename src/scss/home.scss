@@ -1,0 +1,36 @@
+main#landing {
+    section#ecommerce-desc {
+        margin: 10% auto;
+
+        div.card {
+            position: relative;
+            border: none;
+            // border: 1px solid red;
+            text-align: center;
+            padding: 20px;
+
+            .float-icon {
+                width: 125px;
+                height: 125px;
+                // border: 1px solid green;
+
+                position: absolute;
+
+                right: 145px;
+                top: -70px;
+
+                border-radius: 100%;
+                img.icon {
+                    width: 60%;
+                    height: 60%;
+                    margin: 20%;
+                }
+            }
+
+            .card-body {
+                margin-top: 50px;
+            }
+            
+        }
+    }
+}

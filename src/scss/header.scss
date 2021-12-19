@@ -1,0 +1,37 @@
+header#header-home {
+    width: 100vw;
+    height: 80vh;
+
+    .wrap-content {
+        width: 100%;
+        height: inherit;
+
+        background: url("../assets/images/green_leafs.jpg") no-repeat center;
+        background-size: cover;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .overlay-text {
+            width: 45%;
+            height: 200px;
+
+            border-radius: 10px;
+
+            backdrop-filter: blur(2.5px);
+
+            text-align: center;
+
+            h1 {
+                margin: 3%;
+                font-size: 3em;
+            }
+
+            hr {
+                width: 75%;
+                margin: auto 12.5% 3% auto;
+            }
+        }
+    }
+}
