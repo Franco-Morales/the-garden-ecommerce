@@ -1,0 +1,79 @@
+main#landing {
+    padding: 10% 0%;
+    section#ecommerce-desc {
+        
+        div.card {
+            width: 350px;
+            margin: 15% auto;
+            position: relative;
+            border: none;
+            text-align: center;
+            padding: 20px;
+
+            .float-icon {
+                background-color: #fff;
+
+                width: 125px;
+                height: 125px;
+
+                position: absolute;
+
+                right: 112.5px;
+                top: -70px;
+
+                border-radius: 100%;
+                img.icon {
+                    width: 60%;
+                    height: 60%;
+                    margin: 20%;
+                }
+            }
+
+            .card-body {
+                margin-top: 50px;
+            }
+            
+        }
+    }
+
+    section#sale-product {
+        .card {
+            width: 80%;
+            margin: 10%;
+
+            .btn {
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+// Medium devices 
+@media (min-width: 768px) {
+    main#landing {
+        section#ecommerce-desc {
+            div.card {
+                width: 300px;
+    
+                .float-icon {
+                    right: 87.5px;
+                }
+            }
+        }
+    }
+}
+
+// Large devices 
+@media (min-width: 992px) {
+    main#landing {
+        section#ecommerce-desc {
+            div.card {
+                width: 400px;
+                .float-icon {
+                    right: 137.5px;
+                }
+            }
+        }
+    }
+}

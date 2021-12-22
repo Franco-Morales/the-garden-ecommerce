@@ -8,3 +8,7 @@
 * {
     box-sizing: border-box;
 }
+
+.bg-translucid {
+    backdrop-filter: blur(5px);
+}

@@ -1,0 +1,65 @@
+header#header-home {
+    height: 60vh;
+
+    .wrap-content {
+        width: 100%;
+        height: inherit;
+
+        background: url("../../assets/images/green_leafs.jpg") no-repeat center;
+        background-size: cover;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        
+        .overlay-text {
+            width: 80%;
+            height: 200px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            margin-top: 9%;
+
+            h1 {
+                margin: 8%;
+                font-size: 3em;
+            }
+
+            hr {
+                width: 75%;
+                margin: auto 12.5% 3% auto;
+            }
+
+            animation: fadeInDown; 
+            animation-duration: 2.5s; 
+        }
+    }
+}
+
+// Medium devices 
+@media (min-width: 768px) {
+    header#header-home {
+        height: 100vh;
+
+        .wrap-content > .overlay-text {
+            width: 60%;
+        }
+    }
+}
+
+// Large devices 
+@media (min-width: 992px) {
+    header#header-home {
+        .wrap-content > .overlay-text {
+            margin-top: 5%;
+            width: 45%;
+            height: 300px;
+        }
+    }
+}
+
+// Extra large devices 
+// @media (min-width: 1200px) {}

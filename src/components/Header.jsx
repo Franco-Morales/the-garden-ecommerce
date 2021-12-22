@@ -1,14 +1,14 @@
 import React from 'react';
 
-import  "../scss/header.scss";
+import  "../scss/components/header.scss";
 
 function Header() {
     return ( 
         <header id="header-home">
             <div className='wrap-content'>
-                <div className='overlay-text bg-translucid text-light border border-light'>
+                <div className='overlay-text bg-translucid text-light border border-blond'>
                     <h1>The Garden</h1>
-                    <hr />
+                    <hr className='text-blond'/>
                     <p>Best E-Commerce for buy indoors plants</p>
                 </div>
             </div>
