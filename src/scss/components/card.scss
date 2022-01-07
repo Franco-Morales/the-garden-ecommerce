@@ -1,0 +1,16 @@
+div#card-product.card {
+    width: 80%;
+    margin: 10%;
+
+    position: relative;
+
+    .btn {
+        width: 100%;
+    }
+
+    span#isOnSale {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+}

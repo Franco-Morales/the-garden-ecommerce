@@ -2,6 +2,7 @@ import React from 'react';
 
 import  "../scss/components/header.scss";
 
+
 function Header() {
     return ( 
         <header id="header-home">

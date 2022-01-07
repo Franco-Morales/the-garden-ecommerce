@@ -5,28 +5,30 @@ import { NavLink, useLocation } from "react-router-dom";
 function Navbar() {
     const [navBar, setNavBar] = useState(true);
     const location = useLocation();
-    
+
 
     const handleScroll = () => {
         let scrollDeviceWidth = ( window.innerWidth <= 450)? 100 : 200;
-        setNavBar( (window.scrollY <= scrollDeviceWidth));
+        setNavBar( (window.scrollY <= scrollDeviceWidth) );
     }
 
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        // solid navbar on this "pages"
+        let solidOnPages = ["product","about","policy"];
+        let condition = !solidOnPages.includes(location.pathname.split("/")[1]);
 
-        // Solid navbar on this "pages"
-        setNavBar( !["/products", "/about"].includes(location.pathname) );
-        
+        setNavBar(condition);
+
+        if(condition) window.addEventListener("scroll", handleScroll);
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
         }
     },[location]);
 
-
     return (
-        <nav className={`navbar navbar-expand-lg navbar-dark fixed-top shadow-lg ${( navBar )? "bg-translucid": "bg-amazon"}`}>
+        <nav className={`navbar navbar-expand-lg navbar-dark fixed-top shadow-lg ${( navBar )? "bg-translucid": "bg-amazon"}`} >
             <div className="container">
                 <NavLink to="/" className='navbar-brand'>The Garden</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">

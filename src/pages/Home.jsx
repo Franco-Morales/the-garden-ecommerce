@@ -1,15 +1,19 @@
 import React from 'react';
 
 import "../scss/pages/home.scss";
+
 import Header from "../components/Header";
+import CardProduct from "../components/Card";
 
 import CualityIcon from "../assets/icons/comercio.png";
 import LocalizationIcon from "../assets/icons/localizacion.png";
 import SecureIcon from "../assets/icons/seguro.png";
-import PlantMockup from "../assets/images/lily-plant.jpg";
-
+import mockupDataJson from "../assets/json/mockup-data.json";
 
 function Home() {
+
+    const data = mockupDataJson;
+
     return (  
         <>
             <Header />
@@ -51,28 +55,20 @@ function Home() {
                         </div>
                     </div>
                 </section>
-                <section id='sale-product'>
+                <section id='sale-product' className='mt-5'>
                     <div className="row">
-                        { ["a","b","c"].map( (el , index) => {
-                            return (
-                                <div className="col-12 col-md-4" key={index}>
-                                    <div className="card shadow">
-                                        <img src={PlantMockup} className="card-img-top" alt="product_plant" />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Generic "{el}" Indoor Plant <span className="badge bg-success ms-4">Sale</span></h5>
-                                            <h6 className="card-subtitle">
-                                                <span className="text-success me-2">$46</span>
-                                                <span className="text-muted text-decoration-line-through">$46</span>
-                                            </h6>
+                        <h3>Discounts  of the day</h3>
+                    </div>
+                    <div className="row">
+                            {
+                                data.filter( el => el.isOnSale ).map( (el, index) => {
+                                    return (
+                                        <div className="col-12 col-md-6 col-lg-4" key={index}>
+                                            <CardProduct product={el}/>
                                         </div>
-                                        <div className='card-body d-grid gap-2 d-md-flex justify-content-md-center'>
-                                            <button className="btn btn-outline-artichoke">View Product</button>
-                                            <button className="btn btn-amazon">Add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                                    )
+                                })
+                            }
                     </div>
                 </section>
             </main>

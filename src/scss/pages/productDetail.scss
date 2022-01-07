@@ -1,0 +1,28 @@
+#product-detail {
+    margin: 15% auto;
+
+    img {
+        margin-top: unset;
+    }
+
+    .product-info {
+        position: relative;
+        span#isOnSale {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #product-detail {
+        margin: 15% auto;
+    }
+}
+
+@media (min-width: 992px) {
+    #product-detail {
+        margin: 7.5% auto;
+    }
+}

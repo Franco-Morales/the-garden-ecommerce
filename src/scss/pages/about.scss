@@ -1,0 +1,14 @@
+#about-page {
+    margin: 20% auto;
+
+    h1 {
+        margin: 2.5% auto ;
+    }
+}
+
+
+@media (min-width: 992px) {
+    #about-page {
+        margin: 5% auto;
+    }
+}
