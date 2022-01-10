@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
-import ProductList from "./pages/ProductList";
+import ItemListContainer from "./pages/ItemListContainer";
 import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
 import Policy from './pages/Policy';
@@ -20,7 +20,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={ <Home /> } />
-        <Route path="/products" element={ <ProductList /> } />
+        <Route path="/products" element={ <ItemListContainer /> } />
         <Route path="/product/:uid" element={ <ProductDetail /> } />
         <Route path="/about" element={ <About /> } />
         <Route path="/policy" element={ <Policy /> } />

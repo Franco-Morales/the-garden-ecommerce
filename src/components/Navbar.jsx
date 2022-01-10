@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from "react-router-dom";
 
+import CartWidget from './CartWidget';
+
 
 function Navbar() {
     const [navBar, setNavBar] = useState(true);
@@ -15,7 +17,7 @@ function Navbar() {
 
     useEffect(() => {
         // solid navbar on this "pages"
-        let solidOnPages = ["product","about","policy"];
+        let solidOnPages = ["product","about","policy","products"];
         let condition = !solidOnPages.includes(location.pathname.split("/")[1]);
 
         setNavBar(condition);
@@ -39,6 +41,7 @@ function Navbar() {
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/products" className='nav-link'>Products</NavLink>
                         <NavLink to="/about" className='nav-link'>About</NavLink>
+                        <CartWidget />
                     </div>
                 </div>
             </div>
