@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-
-
 import "../scss/components/card.scss";
 
 
-function CardProduct(props) {
-    const { product } = props;
+function CardProduct({ product }) {
 
     const addToCard = (e,product) => {
         e.preventDefault();
@@ -17,10 +14,10 @@ function CardProduct(props) {
     return (  
         <div id="card-product" className="card shadow">
             { product.isOnSale && <span className="badge bg-success ms-4" id="isOnSale">- 25%</span>}
-            <img src={product.img_path} className="card-img-top" alt="product_plant" />
+            <img src={product.pictureUrl} className="card-img-top" alt="product_plant" />
             <hr />
             <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
+                <h5 className="card-title">{product.title}</h5>
                 
                 <h6 className="card-subtitle my-2">
                 { 

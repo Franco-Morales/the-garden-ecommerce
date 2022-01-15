@@ -3,16 +3,16 @@ import React from 'react';
 import "../scss/pages/home.scss";
 
 import Header from "../components/Header";
-import CardProduct from "../components/Card";
+import Item from "../components/Item";
 
 import CualityIcon from "../assets/icons/comercio.png";
 import LocalizationIcon from "../assets/icons/localizacion.png";
 import SecureIcon from "../assets/icons/seguro.png";
-import mockupDataJson from "../assets/json/mockup-data.json";
+import mockDataJson from "../assets/json/mock-data.json";
 
 function Home() {
 
-    const data = mockupDataJson;
+    const data = mockDataJson;
 
     return (  
         <>
@@ -64,7 +64,7 @@ function Home() {
                                 data.filter( el => el.isOnSale ).map( (el, index) => {
                                     return (
                                         <div className="col-12 col-md-6 col-lg-4" key={index}>
-                                            <CardProduct product={el}/>
+                                            <Item product={el}/>
                                         </div>
                                     )
                                 })

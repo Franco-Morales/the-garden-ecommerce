@@ -1,25 +1,25 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
 
-import {  } from "../scss/pages/productDetail.scss";
+import  "../scss/pages/productDetail.scss";
 
-import mockupDataJson from "../assets/json/mockup-data.json";
+import mockDataJson from "../assets/json/mock-data.json";
 
 function ProductDetail() {
     let params = useParams();
 
-    const data = mockupDataJson.find( el => el.uid === params.uid);
+    const data = mockDataJson.find( el => el.uid === params.uid);
 
 
     return (
         <div className="container" id="product-detail">
             <div className="row">
                 <div className="col-12 col-md-6 col-lg-8">
-                    <img src={data.img_path} alt="" className="img-fluid" />
+                    <img src={data.pictureUrl} alt="" className="img-fluid" />
                 </div>
                 <div className="col-12 col-md-6 col-lg-4">
                     <div className="product-info">
-                        <h1>{data.name}</h1>
+                        <h1>{data.title}</h1>
                         { 
                             data.isOnSale?(
                                 <>

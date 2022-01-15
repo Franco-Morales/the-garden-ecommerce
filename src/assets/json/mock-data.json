@@ -1,42 +1,47 @@
 [
     {
         "uid":"50adf6db-13bc-4fef-bfb9-f6b32dfc0f9c",
-        "name":"Small Granite Bacon",
+        "title":"Small Granite Bacon",
         "description":"The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
-        "img_path":"https://image.freepik.com/free-photo/pepper-face-plant-small-pot_53876-94408.jpg",
+        "pictureUrl":"https://image.freepik.com/free-photo/pepper-face-plant-small-pot_53876-94408.jpg",
         "price":"374.50",
+        "stock": 10,
         "isOnSale": false
     },
     {
         "uid":"f98bb53c-ba62-42bc-a909-564b18c66375",
-        "name":"Small Soft Table",
+        "title":"Small Soft Table",
         "description":"The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-        "img_path":"https://image.freepik.com/free-photo/peace-lily-plant-terracotta-pot-home-decor-object_53876-146302.jpg",
+        "pictureUrl":"https://image.freepik.com/free-photo/peace-lily-plant-terracotta-pot-home-decor-object_53876-146302.jpg",
         "price":"493.00",
+        "stock": 10,
         "isOnSale": true
     },
     {
         "uid":"bdd5008f-309a-4d97-9b7a-9c8acee887d4",
-        "name":"Ergonomic Wooden Fish",
-        "description":"The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
-        "img_path":"https://image.freepik.com/free-photo/rubber-plant-terracotta-pot-home-decor-object_53876-146608.jpg",
+        "title":"Ergonomic Wooden Fish",
+        "description":"The Nagasaki Lander is the trademarked title of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+        "pictureUrl":"https://image.freepik.com/free-photo/rubber-plant-terracotta-pot-home-decor-object_53876-146608.jpg",
         "price":"738.60",
+        "stock": 0,
         "isOnSale": false
     },
     {
         "uid":"39e1d969-056b-46aa-a8d3-d1ad3f616d16",
-        "name":"Rustic Plastic Mouse",
+        "title":"Rustic Plastic Mouse",
         "description":"The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
-        "img_path":"https://image.freepik.com/free-photo/faux-watermelon-peperomia-plant-terracotta-pot-home-decor_53876-145184.jpg",
+        "pictureUrl":"https://image.freepik.com/free-photo/faux-watermelon-peperomia-plant-terracotta-pot-home-decor_53876-145184.jpg",
         "price":"665.00",
+        "stock": 7,
         "isOnSale": true
     },
     {
         "uid":"3c8c755d-a26f-403a-a743-069d21202140",
-        "name":"Licensed Frozen Computer",
+        "title":"Licensed Frozen Computer",
         "description":"Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
-        "img_path":"https://image.freepik.com/free-photo/pepper-face-plant-small-pot_53876-94408.jpg",
+        "pictureUrl":"https://image.freepik.com/free-photo/pepper-face-plant-small-pot_53876-94408.jpg",
         "price":"413.99",
+        "stock": 5,
         "isOnSale": false
     }
 ]
