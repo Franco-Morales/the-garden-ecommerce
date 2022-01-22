@@ -16,3 +16,10 @@ export const getOneProduct = (idProduct) => new Promise( (resolve, reject) => {
     
     setTimeout( resolve(muckData.find( el => el.uid === idProduct)), 2000 );
 });
+
+
+export const getAllBySale = new Promise( (resolve, reject) => {
+    if(getRadomNumber <= 5) return reject("¡ Error 500 :( !");
+    
+    setTimeout( resolve(muckData.filter( el => el.isOnSale === true)), 2000 );
+});

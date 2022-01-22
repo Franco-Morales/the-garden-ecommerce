@@ -24,10 +24,6 @@ const ItemCount = ({ stock, initial, onAdd }) => {
                 </div>
             </div>
             <div className="card-footer d-grid">
-                {/* { (stock)? 
-                    <button className="btn btn-outline-amazon" onClick={(e) => onAdd(e, count)}>Add to cart</button> :
-                    <button className='btn btn-amazon' disabled>Out off stock</button>
-                } */}
                 <button className="btn btn-outline-amazon" onClick={(e) => onAdd(e, count)} disabled={(stock===0)}>Add to cart</button>
             </div>
         </div>

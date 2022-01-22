@@ -6,8 +6,9 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
-import ItemListContainer from "./pages/ItemListContainer";
-import ItemDetailContainer from "./pages/ItemDetailContainer";
+import ItemListContainer from "./pages/ItemList/ItemListContainer";
+import ItemDetailContainer from "./pages/ItemDetail/ItemDetailContainer";
+import Cart from "./pages/Cart";
 import About from "./pages/About";
 import Policy from './pages/Policy';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={ <Home /> } />
         <Route path="/products" element={ <ItemListContainer /> } />
         <Route path="/product/:uid" element={ <ItemDetailContainer /> } />
+        <Route path="/cart" element={ <Cart /> } />
         <Route path="/about" element={ <About /> } />
         <Route path="/policy" element={ <Policy /> } />
         <Route path="*" element={ <Error404 /> } />

@@ -6,7 +6,7 @@ import "../scss/components/card.scss";
 
 function CardProduct({ product }) {
 
-    const addToCard = (e,product) => {
+    const addToCard = (e, product) => {
         e.preventDefault();
         console.log(product);
     }
