@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import CartWidget from './CartWidget';
+
+import mockData from "../assets/json/mock-data.json";
 
 
 function Navbar() {
     const [navBar, setNavBar] = useState(true);
     const location = useLocation();
-
+    const { categories } = mockData;
 
     const handleScroll = () => {
         let scrollDeviceWidth = ( window.innerWidth <= 450)? 100 : 200;
@@ -17,7 +19,7 @@ function Navbar() {
 
     useEffect(() => {
         // solid navbar on this "pages"
-        let solidOnPages = ["product","about","policy","products"];
+        let solidOnPages = ["product","about","policy","products", "category"];
         let condition = !solidOnPages.includes(location.pathname.split("/")[1]);
 
         setNavBar(condition);
@@ -40,7 +42,20 @@ function Navbar() {
                     <div className="navbar-nav ms-auto">
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/products" className='nav-link'>Products</NavLink>
-                        <NavLink to="/about" className='nav-link'>About</NavLink>
+                        <li className="nav-item dropdown">
+                            <span className="nav-link dropdown-toggle"id="catDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </span>
+                            <ul className="dropdown-menu" aria-labelledby="catDropdown">
+                                { categories.map( (category, index) => {
+                                    return (
+                                        <li key={index}>
+                                            <Link className="dropdown-item" to={`category/${category.id}`}>{category.name}</Link>
+                                        </li>
+                                    )
+                                }) }
+                            </ul>
+                        </li>
                         <CartWidget />
                     </div>
                 </div>

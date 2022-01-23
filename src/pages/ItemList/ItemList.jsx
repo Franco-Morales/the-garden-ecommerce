@@ -7,15 +7,15 @@ const ItemList = ({ products }) => {
     return (
         <div className="row">
             <div className="col-12">
-                <h1>Products</h1>
+                <h3>Products</h3>
             </div>
-            { products.map( el => {
+            { (products.length)? products.map( el => {
                 return (
-                    <div className="col-12 col-md-6 col-lg-4">
-                        <Item key={el.uid} product={el}/>
+                    <div className="col-12 col-md-6 col-lg-4" key={el.uid}>
+                        <Item product={el}/>
                     </div>
                 )
-            }) }
+            }) : <h5> Sin products</h5> }
         </div>
     )
 }
