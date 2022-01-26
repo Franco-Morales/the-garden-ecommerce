@@ -1,16 +1,20 @@
 div#card-product.card {
-    width: 80%;
-    margin: 10%;
+    width: 60%;
+    margin: 5% 20%;
 
-    position: relative;
+    img.card-img-top {
+        width: 80%;
+        margin: 5% auto;
+    }
 
     .btn {
         width: 100%;
     }
+}
 
-    span#isOnSale {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-    }
+@media (min-width: 768px) {
+    div#card-product.card {
+        width: 80%;
+        margin: 10%;
+    }  
 }

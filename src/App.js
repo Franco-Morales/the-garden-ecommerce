@@ -20,7 +20,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={ <Home /> } />
+        <Route exact path="/" element={ <Home /> } />
         <Route path="/products" element={ <ItemListContainer /> } />
         <Route path="/category/:cid" element={ <ItemListContainer /> } />
         <Route path="/product/:uid" element={ <ItemDetailContainer /> } />

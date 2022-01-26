@@ -25,5 +25,5 @@ export const getAllByCategory = (categoryId) => new Promise( (resolve, reject) =
 export const getAllBySale = new Promise( (resolve, reject) => {
     if(getRadomNumber <= 5) return reject("¡ Error 500 :( !");
     
-    setTimeout( resolve(products.filter( el => el.isOnSale === true)), 2000 );
+    setTimeout( resolve(products.filter( el => el.isOnSale?.flag === true)), 2000 );
 });

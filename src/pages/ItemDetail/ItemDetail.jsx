@@ -1,8 +1,11 @@
 import React from 'react'
+import Badge from '../../components/Badge';
 import  "../../scss/pages/itemDetail.scss";
 
 
 const ItemDetail = ({ product }) => {
+    let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
+    
     return (
         <div className="container" id="product-detail">
             <div className="row">
@@ -13,16 +16,19 @@ const ItemDetail = ({ product }) => {
                     <div className="product-info">
                         <h1>{product.title}</h1>
                         { 
-                            product.isOnSale?(
+                            (product.isOnSale?.flag && product.stock)?(
                                 <>
-                                    <span className="text-success me-4">${product.price*0.25}</span>
+                                    <span className="text-success me-4">${newPrice}</span>
                                     <span className="text-muted text-decoration-line-through">${product.price}</span>
+                                    <Badge background={"success"} flag={"discount"} display={`${product.isOnSale?.discount}%`}/>
                                 </>
-                            ) : (
+                            ): (
                                 <span className="text-muted">${product.price}</span>
                             ) 
                         }
-                        { product.isOnSale && <span className="badge bg-success" id="isOnSale">- 25%</span>}
+                        {
+                            (product.stock === 0) && <Badge background={"danger"} flag={"stock"} display={"without stock"}/>
+                        }
                         <hr />
 
                         <p>{product.description}</p>

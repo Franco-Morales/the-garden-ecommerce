@@ -11,28 +11,29 @@ function Navbar() {
     const location = useLocation();
     const { categories } = mockData;
 
+
     const handleScroll = () => {
         let scrollDeviceWidth = ( window.innerWidth <= 450)? 100 : 200;
-        setNavBar( (window.scrollY <= scrollDeviceWidth) );
+        setNavBar( scrollDeviceWidth <= window.scrollY );
     }
 
 
     useEffect(() => {
-        // solid navbar on this "pages"
-        let solidOnPages = ["product","about","policy","products", "category"];
-        let condition = !solidOnPages.includes(location.pathname.split("/")[1]);
-
-        setNavBar(condition);
-
-        if(condition) window.addEventListener("scroll", handleScroll);
+        if((location.pathname === "/") && (window.scrollY === 0)) {
+            setNavBar(false);
+            window.addEventListener("scroll", handleScroll);
+        } else {
+            setNavBar(true)
+        }
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
         }
     },[location]);
 
+    
     return (
-        <nav className={`navbar navbar-expand-lg navbar-dark fixed-top shadow-lg ${( navBar )? "bg-translucid": "bg-amazon"}`} >
+        <nav className={`navbar navbar-expand-lg navbar-dark fixed-top shadow-lg ${( navBar )? "bg-amazon": "bg-translucid"}`} >
             <div className="container">
                 <NavLink to="/" className='navbar-brand'>The Garden</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">

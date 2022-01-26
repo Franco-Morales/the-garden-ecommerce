@@ -6,9 +6,6 @@ import Item from "../../components/Item";
 const ItemList = ({ products }) => {
     return (
         <div className="row">
-            <div className="col-12">
-                <h3>Products</h3>
-            </div>
             { (products.length)? products.map( el => {
                 return (
                     <div className="col-12 col-md-6 col-lg-4" key={el.uid}>
