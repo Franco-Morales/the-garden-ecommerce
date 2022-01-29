@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react';
+
 import Badge from '../../components/Badge';
+import ItemCount from './ItemCount';
+
 import  "../../scss/pages/itemDetail.scss";
+import { Link } from 'react-router-dom';
 
 
 const ItemDetail = ({ product }) => {
     let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
-    
+
+    const [totalItem, setTotalItem] = useState(undefined);
+
+    const onAdd = (e, cantItems) => {
+        e.preventDefault();
+        setTotalItem({ product, quantity: cantItems});
+        console.log(`product: [ ${product.title} ] x ${cantItems}`);
+    }
+
     return (
         <div className="container" id="product-detail">
             <div className="row">
@@ -13,7 +25,7 @@ const ItemDetail = ({ product }) => {
                     <img src={product.pictureUrl} alt="" className="img-fluid" />
                 </div>
                 <div className="col-12 col-md-6 col-lg-4">
-                    <div className="product-info">
+                    <section id="product-info">
                         <h1>{product.title}</h1>
                         { 
                             (product.isOnSale?.flag && product.stock)?(
@@ -27,12 +39,29 @@ const ItemDetail = ({ product }) => {
                             ) 
                         }
                         {
-                            (product.stock === 0) && <Badge background={"danger"} flag={"stock"} display={"without stock"}/>
+                            (product.stock === 0) && <Badge background={"danger"} flag={"stock"} display={"Sold"}/>
                         }
                         <hr />
 
                         <p>{product.description}</p>
-                    </div>
+                    </section>
+                    <section id="product-actions">
+                        {
+                            (totalItem)? 
+                                <div className='d-grid gap-3 d-md-flex justify-content-md-center' id="finish-action">
+                                    <Link className="btn btn-outline-artichoke" to={"/products"}>
+                                        <i className="bi bi-arrow-bar-left me-2" />
+                                        See more products
+                                    </Link>
+                                    <Link className="btn btn-amazon" to={"/cart"}>
+                                        Buy now
+                                        <i className="bi bi-bag-check ms-2" />
+                                    </Link>
+                                </div> :
+                                <ItemCount stock={product.stock} initial={1} onAdd={onAdd}/>
+                                
+                        }
+                    </section>
                 </div>
             </div>
         </div>

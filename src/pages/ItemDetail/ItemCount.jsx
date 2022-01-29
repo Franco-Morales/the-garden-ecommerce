@@ -15,12 +15,12 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
 
     return (
-        <div className='card w-25 m-5'>
+        <div className='card my-5'>
             <div className='card-body'>
-                <div className="input-group mb-3">
-                    <button className="btn btn-outline-dark" onClick={handlerPlus} disabled={stock===0}>+</button>
-                    <input type="number" className="form-control" disabled value={count} />
-                    <button className="btn btn-outline-dark" onClick={handlerMinus} disabled={stock===0}>-</button>
+                <div className="input-group">
+                    <button className="btn btn-outline-artichoke" onClick={handlerPlus} disabled={stock===0}>+</button>
+                    <input type="number" className="form-control text-center" disabled value={count} />
+                    <button className="btn btn-outline-artichoke" onClick={handlerMinus} disabled={stock===0}>-</button>
                 </div>
             </div>
             <div className="card-footer d-grid">
@@ -30,4 +30,4 @@ const ItemCount = ({ stock, initial, onAdd }) => {
     )
 }
 
-export default ItemCount
+export default ItemCount;

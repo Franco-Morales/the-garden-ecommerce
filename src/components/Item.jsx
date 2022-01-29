@@ -34,7 +34,7 @@ function CardProduct({ product }) {
                         ) 
                     }
                     {
-                        (product.stock === 0) && <Badge background={"danger"} flag={"stock"} display={"without stock"}/>
+                        (product.stock === 0) && <Badge background={"danger"} flag={"stock"} display={"Sold"}/>
                     }
                 </h6>
             </div>

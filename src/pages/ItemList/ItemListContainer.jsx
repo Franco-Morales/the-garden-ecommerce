@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Link, useParams } from "react-router-dom";
 
-// import ItemCount from './ItemCount';
 import ItemList from "./ItemList"
 import Loading from "../../components/Loading";
 
@@ -30,10 +29,7 @@ function ProductList() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const { cid } = useParams();
-    // const onAdd = (e, cantItems) => {
-    //     e.preventDefault();
-    //     console.log(`Add to cart ${cantItems} items`);
-    // }
+    
 
     useEffect(() => {
         if(cid) {

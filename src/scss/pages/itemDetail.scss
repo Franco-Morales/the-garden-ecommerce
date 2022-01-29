@@ -5,13 +5,8 @@
         margin-top: unset;
     }
 
-    .product-info {
-        position: relative;
-        span#isOnSale {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-        }
+    #finish-action a.btn {
+        width: 100%;
     }
 }
 
