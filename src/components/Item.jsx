@@ -1,17 +1,24 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Badge from './Badge';
+
+import { useCartContext } from '../context/cartContext';
+import { TYPES } from '../reducers/cart.reducer';
 
 import "../scss/components/card.scss";
-import Badge from './Badge';
 
 
 function CardProduct({ product }) {
+    const { dispatch } = useCartContext();
 
     let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
 
-    const addToCard = (e, product) => {
+    const addToCard = (e) => {
         e.preventDefault();
-        console.log(product);
+        dispatch({ 
+            type: TYPES.addItem, 
+            payload: { item: product, quantity: 1 }
+        });
     }
 
     return (  
@@ -40,7 +47,7 @@ function CardProduct({ product }) {
             </div>
             <div className='card-body d-grid gap-2 d-md-flex justify-content-md-center'>
                 <Link className="btn btn-outline-artichoke" to={`/product/${product.uid}`}>View item</Link>
-                <button className="btn btn-amazon" onClick={(e)=>addToCard(e,product)} disabled={product.stock === 0}>Add to cart</button>
+                <button className="btn btn-amazon" onClick={addToCard} disabled={product.stock === 0}>Add to cart</button>
             </div>
         </div>
     );

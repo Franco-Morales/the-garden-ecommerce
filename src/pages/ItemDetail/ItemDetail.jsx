@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Badge from '../../components/Badge';
 import ItemCount from './ItemCount';
 
 import  "../../scss/pages/itemDetail.scss";
-import { Link } from 'react-router-dom';
 
 
 const ItemDetail = ({ product }) => {
@@ -14,7 +14,7 @@ const ItemDetail = ({ product }) => {
 
     const onAdd = (e, cantItems) => {
         e.preventDefault();
-        setTotalItem({ product, quantity: cantItems});
+        setTotalItem({ item: product, quantity: cantItems});
         console.log(`product: [ ${product.title} ] x ${cantItems}`);
     }
 
@@ -68,4 +68,5 @@ const ItemDetail = ({ product }) => {
     )
 }
 
-export default ItemDetail
+
+export default ItemDetail;

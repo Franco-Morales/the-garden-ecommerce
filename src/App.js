@@ -13,23 +13,26 @@ import About from "./pages/About";
 import Policy from './pages/Policy';
 
 import Error404 from './pages/Page404';
+import CartContextProvider from './context/cartContext';
 
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route exact path="/" element={ <Home /> } />
-        <Route path="/products" element={ <ItemListContainer /> } />
-        <Route path="/category/:cid" element={ <ItemListContainer /> } />
-        <Route path="/product/:uid" element={ <ItemDetailContainer /> } />
-        <Route path="/cart" element={ <Cart /> } />
-        <Route path="/about" element={ <About /> } />
-        <Route path="/policy" element={ <Policy /> } />
-        <Route path="*" element={ <Error404 /> } />
-      </Routes>
-      <Footer />
+      <CartContextProvider>
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={ <Home /> } />
+          <Route path="/products" element={ <ItemListContainer /> } />
+          <Route path="/category/:cid" element={ <ItemListContainer /> } />
+          <Route path="/product/:uid" element={ <ItemDetailContainer /> } />
+          <Route path="/cart" element={ <Cart /> } />
+          <Route path="/about" element={ <About /> } />
+          <Route path="/policy" element={ <Policy /> } />
+          <Route path="*" element={ <Error404 /> } />
+        </Routes>
+        <Footer />
+      </CartContextProvider>
     </Router>
   );
 }
