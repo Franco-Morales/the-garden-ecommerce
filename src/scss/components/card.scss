@@ -1,20 +1,12 @@
 div#card-product.card {
-    width: 60%;
-    margin: 5% 20%;
 
     img.card-img-top {
-        width: 80%;
+        width: 90%;
+        height: 250px;
         margin: 5% auto;
     }
 
     .btn {
         width: 100%;
     }
-}
-
-@media (min-width: 768px) {
-    div#card-product.card {
-        width: 80%;
-        margin: 10%;
-    }  
 }

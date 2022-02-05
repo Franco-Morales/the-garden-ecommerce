@@ -3,7 +3,6 @@ import React,{ useState, useEffect } from 'react';
 import "../scss/pages/home.scss";
 
 import Header from "../components/Header";
-import Item from "../components/Item";
 import Loading from "../components/Loading";
 
 import CualityIcon from "../assets/icons/comercio.png";
@@ -11,6 +10,7 @@ import LocalizationIcon from "../assets/icons/localizacion.png";
 import SecureIcon from "../assets/icons/seguro.png";
 
 import { getAllBySale } from "../services/mockData";
+import ItemList from './ItemList/ItemList';
 
 
 const CardInfo = ({ info }) => {
@@ -66,13 +66,7 @@ function Home() {
                         <h3>Discounts  of the day</h3>
                     </div>
                     <div className="row">
-                            { ( loading )? <Loading /> : productSale.map( el => {
-                                return (
-                                    <div className="col-12 col-md-6 col-lg-4" key={el.uid}>
-                                        <Item product={el}/>
-                                    </div>
-                                )
-                            }) }
+                            { ( loading )? <Loading /> : <ItemList products={productSale}/>}
                     </div>
                 </section>
             </main>

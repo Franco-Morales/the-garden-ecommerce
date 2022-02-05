@@ -51,7 +51,7 @@ function ProductList() {
 
 
     return (
-        <div style={{ marginTop: 100 }} className='container'>
+        <div style={{ marginTop: 100, marginBottom: 100}} className='container'>
             { ( loading )? <Loading /> : 
             <>
                 { cid && <BreadCrumb cid={cid} />}

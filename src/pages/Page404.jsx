@@ -17,7 +17,7 @@ function Error404() {
 
 
     return ( 
-        <div className="container">
+        <div className="container" id="p-404">
             <div className="row">
                 <div className="col-12">
                     <img src={Svg404} alt="Page_not_found_image" />

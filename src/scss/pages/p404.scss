@@ -1,4 +1,4 @@
-.container {
+div.container#p-404 {
     img {
         width: 90%;
         margin: 20% 5%;
@@ -7,7 +7,7 @@
 
 
 @media (min-width: 992px) {
-    .container {
+    div.container#p-404{
         img {
             width: 60%;
             margin: 10% 20% 5%;
