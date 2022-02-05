@@ -4,18 +4,26 @@ import { Link } from 'react-router-dom';
 import Badge from '../../components/Badge';
 import ItemCount from './ItemCount';
 
+import { useCartContext } from '../../context/cartContext';
+import {  TYPES } from "../../reducers/cart.reducer";
+
 import  "../../scss/pages/itemDetail.scss";
 
 
 const ItemDetail = ({ product }) => {
-    let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
+    const { dispatch } = useCartContext();
+    const [ selectedItem, setSelectedItem] = useState( false );
 
-    const [totalItem, setTotalItem] = useState(undefined);
+    let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
+    
 
     const onAdd = (e, cantItems) => {
         e.preventDefault();
-        setTotalItem({ item: product, quantity: cantItems});
-        console.log(`product: [ ${product.title} ] x ${cantItems}`);
+        setSelectedItem(true);
+        dispatch({ 
+             type: TYPES.addItem, 
+             payload: { item: product, quantity: cantItems }
+        });
     }
 
     return (
@@ -47,7 +55,7 @@ const ItemDetail = ({ product }) => {
                     </section>
                     <section id="product-actions">
                         {
-                            (totalItem)? 
+                            ( selectedItem )? 
                                 <div className='d-grid gap-3 d-md-flex justify-content-md-center' id="finish-action">
                                     <Link className="btn btn-outline-artichoke" to={"/products"}>
                                         <i className="bi bi-arrow-bar-left me-2" />

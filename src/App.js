@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ItemListContainer from "./pages/ItemList/ItemListContainer";
 import ItemDetailContainer from "./pages/ItemDetail/ItemDetailContainer";
-import Cart from "./pages/Cart";
+import CartContainer from "./pages/Cart/CartContainer";
 import About from "./pages/About";
 import Policy from './pages/Policy';
 
@@ -27,7 +27,7 @@ function App() {
           <Route path="/products" element={ <ItemListContainer /> } />
           <Route path="/category/:cid" element={ <ItemListContainer /> } />
           <Route path="/product/:uid" element={ <ItemDetailContainer /> } />
-          <Route path="/cart" element={ <Cart /> } />
+          <Route path="/cart" element={ <CartContainer /> } />
           <Route path="/about" element={ <About /> } />
           <Route path="/policy" element={ <Policy /> } />
           <Route path="*" element={ <Error404 /> } />

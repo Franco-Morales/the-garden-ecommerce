@@ -1,0 +1,19 @@
+#cart-item{
+    display: flex;
+    flex-direction: row;
+
+    .card-body {
+        width: 33% !important;
+
+        .cart-item-img {
+            width: 150px;
+            height: 150px;
+        }
+    }
+
+    #cart-actions {
+        display: inherit;
+        align-items: center;
+        justify-content: center;
+    }
+}

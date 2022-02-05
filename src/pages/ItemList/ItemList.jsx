@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Item from "../../components/Item";
+import EmptyResult from "../../components/EmptyResult";
 
 
 const ItemList = ({ products }) => {
@@ -12,7 +13,7 @@ const ItemList = ({ products }) => {
                         <Item product={el}/>
                     </div>
                 )
-            }) : <h5> Sin products</h5> }
+            }) : <EmptyResult text='No search results'/>}
         </div>
     )
 }

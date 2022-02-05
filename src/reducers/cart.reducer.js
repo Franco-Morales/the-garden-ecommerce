@@ -3,6 +3,7 @@ const initialState = { cart: [] };
 
 const TYPES = {
     addItem: "ADD_ITEM",
+    removeItem: "REMOVE_ITEM",
     clear: "CLEAR"
 };
 
@@ -20,7 +21,7 @@ const cartReducer = (state, action) => {
         }
         case TYPES.addItem : {
             const { payload } = action;
-
+            
             return ( isInCart(state.cart, payload.item?.uid) )? 
             { 
                 cart: state.cart.map( el => {
@@ -35,6 +36,13 @@ const cartReducer = (state, action) => {
             } : {
                 cart: [ ...state.cart, payload]
             };
+        }
+        case TYPES.removeItem : {
+            const { payload } = action;
+
+            return {
+                cart: state.cart.filter( el => el.item.uid !== payload.uid )
+            }
         }
         default:
             return state;
