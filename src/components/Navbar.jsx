@@ -3,19 +3,26 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 import CartWidget from './CartWidget';
 
-import mockData from "../assets/json/mock-data.json";
+import { getCategories } from '../services/firebaseSvc';
 
 
 function Navbar() {
     const [navBar, setNavBar] = useState(true);
+    const [ categories, setCategories ] = useState([]);
     const location = useLocation();
-    const { categories } = mockData;
-
+    
 
     const handleScroll = () => {
         let scrollDeviceWidth = ( window.innerWidth <= 450)? 100 : 200;
         setNavBar( scrollDeviceWidth <= window.scrollY );
     }
+
+
+    useEffect( ()=> {
+        getCategories()
+            .then( resp => setCategories( resp.map( cat => { return { uid: cat.id, ...cat.data()} }) ) )
+            .catch( error => console.error(error));
+    },[]);
 
 
     useEffect(() => {
@@ -48,13 +55,15 @@ function Navbar() {
                                 Categories
                             </span>
                             <ul className="dropdown-menu" aria-labelledby="catDropdown">
-                                { categories.map( (category, index) => {
-                                    return (
-                                        <li key={index}>
-                                            <Link className="dropdown-item" to={`category/${category.id}`}>{category.name}</Link>
-                                        </li>
-                                    )
-                                }) }
+                                {
+                                    categories.map( (category, index) => {
+                                        return (
+                                            <li key={`${index}-${category.uid}`}>
+                                                <Link className="dropdown-item" to={`category/${category.uid}`}>{category.name}</Link>
+                                            </li>
+                                        )
+                                    })
+                                }
                             </ul>
                         </li>
                         <CartWidget />

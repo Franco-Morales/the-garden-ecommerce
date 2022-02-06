@@ -4,21 +4,21 @@ import { useParams } from "react-router-dom";
 import ItemDetail from "./ItemDetail";
 import Loading from "../../components/Loading";
 
-import { getOneProduct } from "../../services/mockData";
+import { getOneProduct } from "../../services/firebaseSvc";
 
 
 function ItemDetailContainer() {
     let { uid } = useParams();
     const [product, setProduct] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getOneProduct(uid)
-            .then(resp => setProduct(resp))
-            .catch( error => {
-                console.error(error);
-                setLoading(true);
-            });
+            .then(resp => {
+                setProduct( resp );
+                setLoading( false );
+            })
+            .catch( error => console.error(error) );
     }, [uid]);
 
     return ( loading )? <Loading /> : <ItemDetail product={product}/>;

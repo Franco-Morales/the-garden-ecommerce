@@ -9,7 +9,7 @@ import CualityIcon from "../assets/icons/comercio.png";
 import LocalizationIcon from "../assets/icons/localizacion.png";
 import SecureIcon from "../assets/icons/seguro.png";
 
-import { getAllBySale } from "../services/mockData";
+import { getAllBySale } from "../services/firebaseSvc";
 import ItemList from './ItemList/ItemList';
 
 

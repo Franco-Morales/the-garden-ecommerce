@@ -1,51 +1,36 @@
 import React, { useState, useEffect} from 'react';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import ItemList from "./ItemList"
 import Loading from "../../components/Loading";
+import BreadCrumb from './BreadCrumb';
 
-import { getAllProducts, getAllByCategory } from "../../services/mockData";
-import muckData from "../../assets/json/mock-data.json";
+import { getAllProducts, getAllByCategory } from "../../services/firebaseSvc";
 
 
-const BreadCrumb = ({ cid }) => {
-    return (
-        <div className="row">
-            <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li className="breadcrumb-item">Categories</li>
-                    <li className="breadcrumb-item active" aria-current="page">{ muckData.categories.filter( cat => cat.id === +cid )[0].name }</li>
-                </ol>
-            </nav>
-            <hr />
-        </div>
-    )
-}
+
 
 function ProductList() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [ data, setData ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
     const { cid } = useParams();
     
 
     useEffect(() => {
         if(cid) {
             getAllByCategory(cid)
-                .then( res => setData(res) )
-                .catch(err => {
-                    console.error(err);
-                    setLoading(true);
-                }); 
+                .then( resp => {
+                    setData( resp.map( el => { return { uid: el.id, ...el.data() } }) );
+                    setLoading(false);
+                } )
+                .catch( err => console.error(err) );
         } else {
-            getAllProducts
-                .then( res => setData(res) )
-                .catch(err => {
-                    console.error(err);
-                    setLoading(true);
-                });
+            getAllProducts()
+                .then( resp => {
+                    setData( resp.map( el => { return { uid: el.id, ...el.data() } }) );
+                    setLoading(false);
+                })
+                .catch( err => console.error(err) );
         }
     }, [cid]);
 
@@ -54,8 +39,8 @@ function ProductList() {
         <div style={{ marginTop: 100, marginBottom: 100}} className='container'>
             { ( loading )? <Loading /> : 
             <>
-                { cid && <BreadCrumb cid={cid} />}
-                <ItemList products={data}/>
+                { cid && <BreadCrumb />}
+                <ItemList products={ data }/>
             </>}
         </div>
     );
