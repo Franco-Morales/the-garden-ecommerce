@@ -34,16 +34,16 @@ function Home() {
         { title: "Secure first", Img: SecureIcon },
     ];
 
-    const [productSale, setProductSale] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [ productSale, setProductSale ] = useState([]);
+    const [ loading, setLoading ] = useState( true );
 
     useEffect(() => {
-        getAllBySale
-            .then( resp => setProductSale(resp))
-            .catch( error => {
-                console.error(error);
-                setLoading(true);
-            });
+        getAllBySale()
+            .then( resp => { 
+                setProductSale(resp);
+                setLoading(false);
+            })
+            .catch( error => console.error(error));
     }, [])
 
     return (  
@@ -73,5 +73,6 @@ function Home() {
         </>
     );
 }
+
 
 export default Home;

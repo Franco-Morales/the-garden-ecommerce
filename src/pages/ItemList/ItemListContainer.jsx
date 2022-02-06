@@ -8,8 +8,6 @@ import BreadCrumb from './BreadCrumb';
 import { getAllProducts, getAllByCategory } from "../../services/firebaseSvc";
 
 
-
-
 function ProductList() {
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState(true);
@@ -36,7 +34,7 @@ function ProductList() {
 
 
     return (
-        <div style={{ marginTop: 100, marginBottom: 100}} className='container'>
+        <div style={{ margin: "100px auto"}} className='container'>
             { ( loading )? <Loading /> : 
             <>
                 { cid && <BreadCrumb />}

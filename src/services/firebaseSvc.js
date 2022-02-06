@@ -56,7 +56,11 @@ const getAllByCategory = async (categoryId) => {
 
 const getAllBySale = async () => {
     try {
-        
+        return ( await getAllProducts() )
+                .map( el => {
+                    return { uid: el.id, ...el.data() }
+                })
+                .filter( el => el.isOnSale.flag );
     } catch (error) {
         console.error(`Firebase Service Error : ${error}`);
     }
