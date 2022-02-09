@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import ItemDetail from "./ItemDetail";
 import Loading from "../../components/Loading";
 
-import { getOneProduct } from "../../services/firebaseSvc";
+import { getFromFirestore } from "../../services/firebaseSvc";
 
 
 function ItemDetailContainer() {
@@ -13,7 +13,7 @@ function ItemDetailContainer() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getOneProduct(uid)
+        getFromFirestore("products", uid)
             .then(resp => {
                 setProduct( resp );
                 setLoading( false );

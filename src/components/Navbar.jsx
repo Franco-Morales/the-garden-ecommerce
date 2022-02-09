@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 import CartWidget from './CartWidget';
 
-import { getCategories } from '../services/firebaseSvc';
+import { getFromFirestore } from '../services/firebaseSvc';
 
 
 function Navbar() {
@@ -17,20 +17,19 @@ function Navbar() {
         setNavBar( scrollDeviceWidth <= window.scrollY );
     }
 
-
     useEffect( ()=> {
-        getCategories()
-            .then( resp => setCategories( resp.map( cat => { return { uid: cat.id, ...cat.data()} }) ) )
+        getFromFirestore("categories")
+            .then( resp => setCategories( resp ) )
             .catch( error => console.error(error));
     },[]);
 
 
     useEffect(() => {
         if((location.pathname === "/") && (window.scrollY === 0)) {
-            setNavBar(false);
+            setNavBar(prevState => !prevState);
             window.addEventListener("scroll", handleScroll);
         } else {
-            setNavBar(true)
+            setNavBar(true);
         }
 
         return () => {

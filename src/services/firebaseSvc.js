@@ -1,71 +1,58 @@
 import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 
-const getCategories = async () => {
-    const db = getFirestore();
-
+/**
+ * Retorna los primeros 4 elementos de la coleccion `products` cuyo atributo `isOn.Flag` sea `true`
+ * @returns {[]}
+ */
+const getProductsBySale = async () => {
     try {
-        const ref = collection(db, "categories");
-        const docSnapshots = await getDocs( ref );
-        return docSnapshots.docs;
-    } catch(error) {
-        console.error(`Firebase Service Error : ${error}`);
-    }
-}
-
-const getAllProducts = async () => {
-    const db = getFirestore();
-
-    try {
-        const ref = collection(db, "products")
-        const docSnapshots = await getDocs( ref );
-        return docSnapshots.docs;
+        return ( await getFromFirestore("products") ).filter( el => el.isOnSale.flag ).slice(0, 4);
     } catch (error) {
         console.error(`Firebase Service Error : ${error}`);
     }
 }
 
-const getOneProduct = async (uid) => {
+/**
+ * Obtiene una colección, un documento dado un `uid` o filtrar una coleccion dado un arreglo.
+ * 
+ * Ejemplo filter : `props`[property] del documento, `op`[operator] operador de firebase, `value` )
+ * @param {string} colt `collection` name
+ * @param {( {} | [] )} filter { uid: firebase-id } | [props, op, value] 
+ * @returns {( [] | {} )}
+ */
+const getFromFirestore = async (colt, filter) => {
     const db = getFirestore();
-
     try {
-        const ref = doc(db, "products", uid);
-        const docSnap = await getDoc( ref );
-        
-        if(!docSnap.exists()) {
-            return false;
+        if( filter === undefined ) {
+            const ref = collection( db, colt);
+            const snapshot = await getDocs( ref );
+
+            return snapshot.docs.map( el => {
+                return {
+                    uid: el.id,
+                    ...el.data()
+                }
+            });
+        } else if(typeof filter === "object" && filter.uid){
+            const ref = doc( db, colt, filter.uid);
+            const snapshot = await getDoc( ref );
+            return {
+                uid: snapshot.id,
+                ...snapshot.data()
+            }
+        } else {
+            const q = query( collection(db, colt), where(...filter) );
+            const snapshot = await getDocs( q );
+
+            return snapshot.docs.map( el => {
+                return { uid: el.id, ...el.data() }
+            });
         }
-
-        return { uid: docSnap.id, ...docSnap.data()};
     } catch (error) {
-        console.error(`Firebase Service Error : ${error}`);
-    }
-}
-
-const getAllByCategory = async (categoryId) => {
-    const db = getFirestore();
-    try {
-        const q = query( collection(db, "products"), where("category", "==", categoryId) );
-        const docSnapshots = await getDocs( q );
-
-        return docSnapshots.docs;
-    } catch (error) {
-        console.error(`Firebase Service Error : ${error}`);
-    }
-}
-
-const getAllBySale = async () => {
-    try {
-        return ( await getAllProducts() )
-                .map( el => {
-                    return { uid: el.id, ...el.data() }
-                })
-                .filter( el => el.isOnSale.flag );
-    } catch (error) {
-        console.error(`Firebase Service Error : ${error}`);
+        console.error(`Firebase Service -> ${error}`);
     }
 }
 
 
-
-export { getAllProducts, getOneProduct, getAllByCategory, getAllBySale, getCategories };
+export { getFromFirestore, getProductsBySale };

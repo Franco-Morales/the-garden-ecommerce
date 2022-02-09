@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
  
-import { getCategories } from "../../services/firebaseSvc";
+import { getFromFirestore } from "../../services/firebaseSvc";
 
 
 const BreadCrumb = () => {
@@ -9,8 +9,8 @@ const BreadCrumb = () => {
     const { cid } = useParams();
 
     useEffect( ()=> {
-        getCategories()
-            .then( resp => setCategories( resp.map( cat => { return { uid: cat.id, ...cat.data()} }) ) )
+        getFromFirestore("categories")
+            .then( resp => setCategories( resp ) )
             .catch( error => console.error(error));
     },[cid]);
     

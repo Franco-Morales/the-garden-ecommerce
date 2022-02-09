@@ -4,13 +4,13 @@ import "../scss/pages/home.scss";
 
 import Header from "../components/Header";
 import Loading from "../components/Loading";
+import ItemList from './ItemList/ItemList';
 
 import CualityIcon from "../assets/icons/comercio.png";
 import LocalizationIcon from "../assets/icons/localizacion.png";
 import SecureIcon from "../assets/icons/seguro.png";
 
-import { getAllBySale } from "../services/firebaseSvc";
-import ItemList from './ItemList/ItemList';
+import { getProductsBySale } from "../services/firebaseSvc";
 
 
 const CardInfo = ({ info }) => {
@@ -38,7 +38,7 @@ function Home() {
     const [ loading, setLoading ] = useState( true );
 
     useEffect(() => {
-        getAllBySale()
+        getProductsBySale()
             .then( resp => { 
                 setProductSale(resp);
                 setLoading(false);
