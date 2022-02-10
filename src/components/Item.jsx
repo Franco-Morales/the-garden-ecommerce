@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import Badge from './Badge';
 
-import { useCartContext } from '../context/cartContext';
+import { useStore } from '../context/storeContext';
 import { TYPES } from '../reducers/cart.reducer';
 
 import "../scss/components/card.scss";
 
 
 function CardProduct({ product }) {
-    const { dispatch } = useCartContext();
-
-    let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
+    const { dispatch } = useStore();
+    
+    let newPrice = +( product.price-(product.price*product.isOnSale?.discount/100) ).toFixed(2);
 
     const addToCard = (e) => {
         e.preventDefault();
@@ -33,7 +33,7 @@ function CardProduct({ product }) {
                         (product.isOnSale?.flag && product.stock)?(
                             <>
                                 <span className="text-success me-4">${newPrice}</span>
-                                <span className="text-muted text-decoration-line-through">${product.price}</span>
+                                <span className="text-muted text-decoration-line-through me-4">${product.price}</span>
                                 <Badge background={"success"} flag={"discount"} display={`${product.isOnSale?.discount}%`}/>
                             </>
                         ): (

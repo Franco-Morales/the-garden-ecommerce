@@ -5,15 +5,15 @@ import EmptyResult from '../../components/EmptyResult';
 import Badge from '../../components/Badge';
 import ItemCount from './ItemCount';
 
-import { useCartContext } from '../../context/cartContext';
+import { useStore } from '../../context/storeContext';
 import {  TYPES } from "../../reducers/cart.reducer";
 
 import  "../../scss/pages/itemDetail.scss";
 
 
 const ItemDetail = ({ product }) => {
-    const { dispatch } = useCartContext();
-    const [ selectedItem, setSelectedItem] = useState( false );
+    const { dispatch } = useStore();
+    const [ selectedItem, setSelectedItem ] = useState( false );
 
     let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
     
@@ -28,7 +28,7 @@ const ItemDetail = ({ product }) => {
     }
 
     return (
-        <div className="container" id="product-detail">
+        <div className="container main-page-margin" id="product-detail">
             {
                 product ? (
                     <div className="row">
@@ -42,7 +42,7 @@ const ItemDetail = ({ product }) => {
                                     (product.isOnSale?.flag && product.stock)?(
                                         <>
                                             <span className="text-success me-4">${newPrice}</span>
-                                            <span className="text-muted text-decoration-line-through">${product.price}</span>
+                                            <span className="text-muted text-decoration-line-through me-4">${product.price}</span>
                                             <Badge background={"success"} flag={"discount"} display={`${product.isOnSale?.discount}%`}/>
                                         </>
                                     ): (

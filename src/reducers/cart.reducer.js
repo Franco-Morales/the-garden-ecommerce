@@ -1,4 +1,4 @@
-const initialState = { cart: [] };
+const cartState = { cart: [] };
 
 
 const TYPES = {
@@ -10,20 +10,20 @@ const TYPES = {
 
 /**
  * 
- * @param { initialState } state 
+ * @param { cartState } state 
  * @param {{ type: TYPES, payload: object}} action 
  * @returns
  */
 const cartReducer = (state, action) => {
     switch (action.type) {
         case TYPES.clear: {
-            return { cart: [] }
+            return { ...state, cart: [] }
         }
         case TYPES.addItem : {
             const { payload } = action;
-            
             return ( isInCart(state.cart, payload.item?.uid) )? 
             { 
+                ...state,
                 cart: state.cart.map( el => {
                     if(payload.item?.uid === el.item?.uid) {
                         return {
@@ -34,6 +34,7 @@ const cartReducer = (state, action) => {
                     return el;
                 })
             } : {
+                ...state,
                 cart: [ ...state.cart, payload]
             };
         }
@@ -41,6 +42,7 @@ const cartReducer = (state, action) => {
             const { payload } = action;
 
             return {
+                ...state,
                 cart: state.cart.filter( el => el.item.uid !== payload.uid )
             }
         }
@@ -58,5 +60,5 @@ const cartReducer = (state, action) => {
 const isInCart = (cart, identifier) => (cart.find( el => el.item?.uid === identifier) !== undefined);
 
 
-export { initialState, TYPES };
+export { cartState, TYPES };
 export default cartReducer;

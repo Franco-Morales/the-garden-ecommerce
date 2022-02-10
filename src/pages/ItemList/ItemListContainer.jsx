@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
-import ItemList from "./ItemList"
+import ItemList from "./ItemList";
 import Loading from "../../components/Loading";
 import BreadCrumb from './BreadCrumb';
 
@@ -26,8 +26,8 @@ function ProductList() {
     }, [cid]);
 
     return (
-        <div style={{ margin: "100px auto"}} className='container'>
-            { ( isLoading )? <Loading /> : 
+        <div className='container main-page-margin'>
+            { ( isLoading )? <Loading isFullPage /> : 
                 <>
                     { cid && <BreadCrumb />}
                     <ItemList products={ data }/>

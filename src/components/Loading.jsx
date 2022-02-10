@@ -1,13 +1,17 @@
 import React from 'react'
 
-const Loading = () => {
+
+const Loading = ({ isFullPage }) => {
+    let pageFormat = isFullPage? "pageFormat" : "itemFormat";
+    
     return (
-        <div className="d-flex justify-content-center" style={{ marginTop: 100, marginBottom: 100}}>
+        <div id={ pageFormat }>
             <div className="spinner-border text-leaf" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>
         </div>
     )
 }
+
 
 export default Loading;

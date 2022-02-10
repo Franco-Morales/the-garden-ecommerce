@@ -13,7 +13,7 @@ function ItemDetailContainer() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getFromFirestore("products", uid)
+        getFromFirestore("products",{ uid })
             .then(resp => {
                 setProduct( resp );
                 setLoading( false );
@@ -21,7 +21,7 @@ function ItemDetailContainer() {
             .catch( error => console.error(error) );
     }, [uid]);
 
-    return ( loading )? <Loading /> : <ItemDetail product={product}/>;
+    return ( loading )? <Loading isFullPage /> : <ItemDetail product={product}/>;
 }
 
 export default ItemDetailContainer;

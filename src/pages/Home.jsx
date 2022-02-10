@@ -35,7 +35,7 @@ function Home() {
     ];
 
     const [ productSale, setProductSale ] = useState([]);
-    const [ loading, setLoading ] = useState( true );
+    const [ isLoading, setLoading ] = useState( true );
 
     useEffect(() => {
         getProductsBySale()
@@ -66,7 +66,7 @@ function Home() {
                         <h3>Discounts  of the day</h3>
                     </div>
                     <div className="row">
-                            { ( loading )? <Loading /> : <ItemList products={productSale}/>}
+                            { ( isLoading )? <Loading /> : <ItemList products={productSale} /> }
                     </div>
                 </section>
             </main>

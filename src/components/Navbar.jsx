@@ -1,27 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 import CartWidget from './CartWidget';
 
-import { getFromFirestore } from '../services/firebaseSvc';
+import { useStore } from '../context/storeContext';
 
+
+const Dropdown = memo( ({ categories }) => {
+    return (
+        <li className="nav-item dropdown">
+            <span className="nav-link dropdown-toggle"id="catDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+            </span>
+            <ul className="dropdown-menu" aria-labelledby="catDropdown">
+                {
+                    categories.map( (category, index) => {
+                        return (
+                            <li key={`${index}-${category.uid}`}>
+                                <Link className="dropdown-item" to={`category/${category.uid}`}>{category.name}</Link>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        </li>
+    )
+});
 
 function Navbar() {
     const [navBar, setNavBar] = useState(true);
-    const [ categories, setCategories ] = useState([]);
+    const { state } = useStore();
+
     const location = useLocation();
-    
 
     const handleScroll = () => {
         let scrollDeviceWidth = ( window.innerWidth <= 450)? 100 : 200;
         setNavBar( scrollDeviceWidth <= window.scrollY );
     }
-
-    useEffect( ()=> {
-        getFromFirestore("categories")
-            .then( resp => setCategories( resp ) )
-            .catch( error => console.error(error));
-    },[]);
 
 
     useEffect(() => {
@@ -49,22 +64,7 @@ function Navbar() {
                     <div className="navbar-nav ms-auto">
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/products" className='nav-link'>Products</NavLink>
-                        <li className="nav-item dropdown">
-                            <span className="nav-link dropdown-toggle"id="catDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Categories
-                            </span>
-                            <ul className="dropdown-menu" aria-labelledby="catDropdown">
-                                {
-                                    categories.map( (category, index) => {
-                                        return (
-                                            <li key={`${index}-${category.uid}`}>
-                                                <Link className="dropdown-item" to={`category/${category.uid}`}>{category.name}</Link>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </li>
+                        <Dropdown categories={state.categories}/>
                         <CartWidget />
                     </div>
                 </div>

@@ -1,34 +1,27 @@
-import React,{ useEffect, useState } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
- 
-import { getFromFirestore } from "../../services/firebaseSvc";
+import { useStore } from "../../context/storeContext";
 
 
 const BreadCrumb = () => {
-    const [ categories, setCategories ] = useState([]);
     const { cid } = useParams();
-
-    useEffect( ()=> {
-        getFromFirestore("categories")
-            .then( resp => setCategories( resp ) )
-            .catch( error => console.error(error));
-    },[cid]);
+    const { state } = useStore();
     
     return (
-        <div className="row">
-            <nav aria-label="breadcrumb">
+        <>
+            <nav aria-label="breadcrumb" className="mb-2">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item">
                         <Link to="/">Home</Link>
                     </li>
                     <li className="breadcrumb-item">Categories</li>
                     <li className="breadcrumb-item active" aria-current="page">
-                        { categories.filter( cat => cat.uid === cid )[0]?.name }
+                        { state.categories.filter( cat => cat.uid === cid )[0]?.name }
                     </li>
                 </ol>
             </nav>
-            <hr />
-        </div>
+            <hr className="mb-5"/>
+        </>
     )
 }
 

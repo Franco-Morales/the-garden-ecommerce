@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { useCartContext } from "../context/cartContext";
+import { useStore } from "../context/storeContext";
 
 
 const CartWidget = () => {
-    const { state } = useCartContext();
+    const { state } = useStore();
     
     return (
         <NavLink className='nav-link position-relative' to={"/cart"}>
@@ -16,7 +16,6 @@ const CartWidget = () => {
                     </span> 
                 ) : ""
             }
-            
         </NavLink>
     )
 }
