@@ -5,7 +5,7 @@ import "../../scss/pages/cart.scss";
 
 const CartItem = ({ prod, onRemoveItem }) => {
   return (
-    <div className="card mb-3" id="cart-item">
+    <div className="card mb-3 shadow" id="cart-item">
       <div className="card-body">
         <img src={prod.item.pictureUrl} alt="" className='cart-item-img'/>
       </div>
@@ -49,12 +49,34 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
         }
       }
     }
-
     return el;
   });
+
+  const total = +auxCart.reduce( (acc, el) => acc+(el.quantity*el.item.price), 0 ).toFixed(2);
+
+  const handleOrder = () => {
+
+    const order = {
+      buyer: {
+        name: "Franco",
+        email: "franco@email.com",
+        phone: "12-12345-6789"
+      },
+      items: auxCart.map( el => ({
+          uid: el.item.uid,
+          title: el.item.title,
+          price: el.item.price,
+          quantity: el.quantity
+        })
+      ),
+      total: total
+    }
+
+    console.log(order);
+  }
   return (
     <div className="row">
-      <div className="col-md-7">
+      <div className="col-md-8">
         <div id="cart-item-wrap">
           {
             cart.map( (el,index) => <CartItem key={`${index}-${Date.now()}`} onRemoveItem={onRemoveItem} prod={el}/>)
@@ -65,8 +87,8 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
           <i className="bi bi-cart-x ms-3"></i>
         </button>
       </div>
-      <div className="col-md-5">
-        <div className="card">
+      <div className="col-md-4">
+        <div className="card shadown">
             <div className="card-header text-center">
               <h4>Sumary</h4>
             </div>
@@ -87,8 +109,11 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
           </div>
           <div className="card-footer">
             <h5 className='ms-3'>
-              Total: {auxCart.reduce( (acc, el) => acc+(el.quantity*el.item.price), 0 )}$
+              Total: { total }$
             </h5>
+          </div>
+          <div className="card-footer d-grid px-5 py-auto">
+            <button className="btn btn-outline-amazon" onClick={handleOrder}>Order</button>
           </div>
         </div>
       </div>
