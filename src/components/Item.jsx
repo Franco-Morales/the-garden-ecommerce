@@ -34,14 +34,14 @@ function CardProduct({ product }) {
                             <>
                                 <span className="text-success me-4">${newPrice}</span>
                                 <span className="text-muted text-decoration-line-through me-4">${product.price}</span>
-                                <Badge background={"success"} flag={"discount"} display={`${product.isOnSale?.discount}%`}/>
+                                <Badge background={"success"} display={`${product.isOnSale?.discount}%`}/>
                             </>
                         ): (
                             <span className="text-muted">${product.price}</span>
                         ) 
                     }
                     {
-                        (product.stock === 0) && <Badge background={"danger"} flag={"stock"} display={"Sold"}/>
+                        (product.stock === 0) && <Badge background={"danger"} otherClass={"ms-3"} display={"Sold"}/>
                     }
                 </h6>
             </div>

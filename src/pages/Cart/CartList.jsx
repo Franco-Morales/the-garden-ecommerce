@@ -1,7 +1,14 @@
 import React from 'react';
 import Badge from "../../components/Badge";
 
+import { useStore } from "../../context/storeContext";
+
+import { insertInFirestore } from '../../services/firebaseSvc';
+import { updateStock } from '../../services/stock';
+
 import "../../scss/pages/cart.scss";
+import { TYPES } from '../../reducers/cart.reducer';
+
 
 const CartItem = ({ prod, onRemoveItem }) => {
   return (
@@ -39,6 +46,8 @@ const CartItem = ({ prod, onRemoveItem }) => {
 
 
 const CartList = ({ cart, onRemoveItem, onClearCart }) => {
+  const { dispatch } = useStore();
+
   let auxCart = cart.map( (el) => {
     if(el.item.isOnSale.flag) {
       return {
@@ -55,7 +64,6 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
   const total = +auxCart.reduce( (acc, el) => acc+(el.quantity*el.item.price), 0 ).toFixed(2);
 
   const handleOrder = () => {
-
     const order = {
       buyer: {
         name: "Franco",
@@ -72,8 +80,19 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
       total: total
     }
 
-    console.log(order);
+    insertInFirestore("orders", order)
+      .then( resp => alert(`Su orden numero ${resp}`) )
+      .catch( error => console.error(error) );
+
+
+    dispatch({ type: TYPES.clear });
+
+    
+    updateStock(order.items)
+      .then( resp => console.log(resp) )
+      .catch( error => console.error(error) );
   }
+
   return (
     <div className="row">
       <div className="col-md-8">

@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, Timestamp, where } from "firebase/firestore";
 
 
 /**
@@ -55,4 +55,24 @@ const getFromFirestore = async (colt, filter) => {
 }
 
 
-export { getFromFirestore, getProductsBySale };
+const insertInFirestore = async (colt, data) => {
+    const db = getFirestore();
+
+    const auxData = {
+        ...data,
+        date: Timestamp.now()
+    }
+
+    try {
+        const ref = collection( db, colt );
+
+        const savedDoc = await addDoc(ref, auxData);
+
+        return savedDoc.id;
+    } catch (error) {
+        console.error(`Firebase Service -> ${error}`);
+    }
+}
+
+
+export { getFromFirestore, getProductsBySale, insertInFirestore };

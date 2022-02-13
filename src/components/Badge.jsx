@@ -1,11 +1,13 @@
 import React from 'react';
 
-const Badge = ({ background, flag, display}) => {
+
+const Badge = ({ background, display, otherClass="" }) => {
   return (
-    <span className={`badge bg-${background}`}>
+    <span className={`badge bg-${background} ${otherClass}`}>
       { display }
     </span>
   )
 };
+
 
 export default Badge;
