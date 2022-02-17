@@ -1,52 +1,18 @@
 import React from 'react';
-import Badge from "../../components/Badge";
+import { Link } from 'react-router-dom';
+import CartItem from './CartItem';
 
 import { useStore } from "../../context/storeContext";
+import TYPES from '../../context/types';
 
-import { insertInFirestore } from '../../services/firebaseSvc';
-import { updateStock } from '../../services/stock';
+import { getFromFirestore, insertInFirestore } from '../../services/firebaseSvc';
+import { updateStock } from '../../services/stockSvc';
 
 import "../../scss/pages/cart.scss";
-import { TYPES } from '../../reducers/cart.reducer';
-
-
-const CartItem = ({ prod, onRemoveItem }) => {
-  return (
-    <div className="card mb-3 shadow" id="cart-item">
-      <div className="card-body">
-        <img src={prod.item.pictureUrl} alt="" className='cart-item-img'/>
-      </div>
-      <div className="card-body">
-        <h3>
-          {prod.item.title}
-        </h3>
-        <p>
-          { (prod.item?.isOnSale.flag)? (
-            <>
-              <span className='me-3'>
-                <i className="text-success me-2">{+( prod.item.price-(prod.item.price*prod.item.isOnSale?.discount/100) ).toFixed(2)}</i>
-                x { prod.quantity }
-              </span>
-              <i className="text-muted text-decoration-line-through me-3">{prod.item.price}$</i>
-              <Badge background="success" flag="discount" display={`${prod.item.isOnSale?.discount}%`}/>
-            </>
-          ) : (
-            <i>{ prod.item.price }$ x { prod.quantity }</i>
-          )}
-        </p>
-      </div>
-      <div className="card-body" id='cart-actions'>
-        <button className='btn btn-artichoke' onClick={(e) => onRemoveItem(e, prod.item.uid)}>
-          <i className="bi bi-x-lg"></i>
-        </button>
-      </div>
-    </div>
-  )
-}
 
 
 const CartList = ({ cart, onRemoveItem, onClearCart }) => {
-  const { dispatch } = useStore();
+  const { state, dispatch } = useStore();
 
   let auxCart = cart.map( (el) => {
     if(el.item.isOnSale.flag) {
@@ -63,13 +29,11 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
 
   const total = +auxCart.reduce( (acc, el) => acc+(el.quantity*el.item.price), 0 ).toFixed(2);
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
+    const buyer = await getFromFirestore("profiles",["auth_id","==",state.auth.uid]);
+
     const order = {
-      buyer: {
-        name: "Franco",
-        email: "franco@email.com",
-        phone: "12-12345-6789"
-      },
+      buyer: buyer[0],
       items: auxCart.map( el => ({
           uid: el.item.uid,
           title: el.item.title,
@@ -80,18 +44,19 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
       total: total
     }
 
-    insertInFirestore("orders", order)
-      .then( resp => alert(`Su orden numero ${resp}`) )
-      .catch( error => console.error(error) );
+    try {
+      const savedOrderId = await insertInFirestore("orders", order);
+      alert(`Su orden numero ${savedOrderId}`);
 
+      dispatch({ type: TYPES.clear });
 
-    dispatch({ type: TYPES.clear });
+      await updateStock(order.items);
 
-    
-    updateStock(order.items)
-      .then( resp => console.log(resp) )
-      .catch( error => console.error(error) );
+    } catch (error) {
+      console.error(error);
+    }
   }
+
 
   return (
     <div className="row">
@@ -132,7 +97,13 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
             </h5>
           </div>
           <div className="card-footer d-grid px-5 py-auto">
-            <button className="btn btn-outline-amazon" onClick={handleOrder}>Order</button>
+            { (Object.entries(state.auth).length === 0) ?
+              <Link to="/login" className='btn btn-outline-primary'> Sign In </Link>
+              :
+              <button className="btn btn-outline-amazon" onClick={handleOrder} >
+                Order
+              </button>
+            }
           </div>
         </div>
       </div>

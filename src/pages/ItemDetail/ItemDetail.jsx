@@ -6,7 +6,7 @@ import Badge from '../../components/Badge';
 import ItemCount from './ItemCount';
 
 import { useStore } from '../../context/storeContext';
-import {  TYPES } from "../../reducers/cart.reducer";
+import TYPES from "../../context/types";
 
 import  "../../scss/pages/itemDetail.scss";
 
@@ -33,7 +33,7 @@ const ItemDetail = ({ product }) => {
                 product ? (
                     <div className="row">
                         <div className="col-12 col-md-6 col-lg-8">
-                            <img src={product.pictureUrl} alt="" className="img-fluid" />
+                            <img src={product.pictureUrl} alt={`${product.title}_image`} className="img-fluid" loading='lazy'/>
                         </div>
                         <div className="col-12 col-md-6 col-lg-4">
                             <section id="product-info">

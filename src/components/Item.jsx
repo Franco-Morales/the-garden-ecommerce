@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import Badge from './Badge';
 
 import { useStore } from '../context/storeContext';
-import { TYPES } from '../reducers/cart.reducer';
 
 import "../scss/components/card.scss";
+import TYPES from '../context/types';
 
 
 function CardProduct({ product }) {
@@ -23,7 +23,7 @@ function CardProduct({ product }) {
 
     return (  
         <div id="card-product" className="card shadow">
-            <img src={product.pictureUrl} className="card-img-top" alt="product_plant" />
+            <img src={product.pictureUrl} className="card-img-top" alt="product_plant" loading='lazy'/>
             <hr />
             <div className="card-body">
                 <h5 className="card-title">{product.title}</h5>

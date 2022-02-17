@@ -1,25 +1,25 @@
-const cartState = { cart: [] };
-
-
-const TYPES = {
+const TYPESCART = {
     addItem: "ADD_ITEM",
     removeItem: "REMOVE_ITEM",
     clear: "CLEAR"
 };
 
 
+const cartState = { cart: [] };
+
+
 /**
  * 
  * @param { cartState } state 
- * @param {{ type: TYPES, payload: object}} action 
+ * @param {{ type: TYPESCART, payload: object}} action 
  * @returns
  */
 const cartReducer = (state, action) => {
     switch (action.type) {
-        case TYPES.clear: {
+        case TYPESCART.clear: {
             return { ...state, cart: [] }
         }
-        case TYPES.addItem : {
+        case TYPESCART.addItem : {
             const { payload } = action;
             return ( isInCart(state.cart, payload.item?.uid) )? 
             { 
@@ -38,7 +38,7 @@ const cartReducer = (state, action) => {
                 cart: [ ...state.cart, payload]
             };
         }
-        case TYPES.removeItem : {
+        case TYPESCART.removeItem : {
             const { payload } = action;
 
             return {
@@ -60,5 +60,5 @@ const cartReducer = (state, action) => {
 const isInCart = (cart, identifier) => (cart.find( el => el.item?.uid === identifier) !== undefined);
 
 
-export { cartState, TYPES };
+export { cartState, TYPESCART };
 export default cartReducer;

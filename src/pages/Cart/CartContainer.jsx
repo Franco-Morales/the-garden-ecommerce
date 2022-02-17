@@ -3,7 +3,7 @@ import EmptyResult from '../../components/EmptyResult';
 import CartList from './CartList';
 
 import { useStore } from "../../context/storeContext";
-import { TYPES } from '../../reducers/cart.reducer';
+import TYPES from '../../context/types';
 
 
 

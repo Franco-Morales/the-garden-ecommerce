@@ -5,7 +5,7 @@ import  "../scss/components/header.scss";
 
 function Header() {
     return ( 
-        <header id="header-home">
+        <header id="header-home" className='shadow'>
             <div className='wrap-content'>
                 <div className='overlay-text bg-translucid text-light border border-blond'>
                     <h1>The Garden</h1>

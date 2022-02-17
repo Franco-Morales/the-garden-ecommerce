@@ -1,35 +1,31 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 import CartWidget from './CartWidget';
 
 import { useStore } from '../context/storeContext';
 
+import { logOut } from "../services/auth";
+import TYPES from '../context/types';
 
-const Dropdown = memo( ({ categories }) => {
+
+const Dropdown = ( props ) => {
     return (
-        <li className="nav-item dropdown">
-            <span className="nav-link dropdown-toggle"id="catDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Categories
+        <li className={`nav-item dropdown ${props.className}`}>
+            <span className="nav-link dropdown-toggle" id={`${props.text}-dropdown`} role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                { props.text }
             </span>
-            <ul className="dropdown-menu" aria-labelledby="catDropdown">
-                {
-                    categories.map( (category, index) => {
-                        return (
-                            <li key={`${index}-${category.uid}`}>
-                                <Link className="dropdown-item" to={`category/${category.uid}`}>{category.name}</Link>
-                            </li>
-                        )
-                    })
-                }
+            <ul className="dropdown-menu" aria-labelledby={`${props.text}-dropdown`}>
+                { props.children }
             </ul>
         </li>
     )
-});
+};
+
 
 function Navbar() {
     const [navBar, setNavBar] = useState(true);
-    const { state } = useStore();
+    const { state, dispatch } = useStore();
 
     const location = useLocation();
 
@@ -52,6 +48,13 @@ function Navbar() {
         }
     },[location]);
 
+
+    const onLogout = async () => {
+        await logOut();
+        dispatch({ type: TYPES.logout });
+        dispatch({ type: TYPES.clear });
+    }
+
     
     return (
         <nav className={`navbar navbar-expand-lg navbar-dark fixed-top shadow-lg ${( navBar )? "bg-amazon": "bg-translucid"}`} >
@@ -64,8 +67,50 @@ function Navbar() {
                     <div className="navbar-nav ms-auto">
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/products" className='nav-link'>Products</NavLink>
-                        <Dropdown categories={state.categories}/>
+                        <Dropdown  text="Categories">
+                        { 
+                            state.categories.map( (cat, index) => 
+                                (
+                                    <li key={`${index}-${cat.uid}`}>
+                                        <Link className="dropdown-item" to={`category/${cat.uid}`}>{cat.name}</Link>
+                                    </li>
+                                ) 
+                            )
+                            
+                        }
+                        </Dropdown>
                         <CartWidget />
+                        { (Object.entries(state.auth).length === 0) ? 
+                            <Link to="/login" className='btn btn-outline-blond ms-5'>Sign In</Link>
+                            :
+                            <Dropdown text={state.auth.name} className="ms-5">
+                                <li>
+                                    <Link className="dropdown-item d-flex justify-content-between" to={`profile/${state.auth.uid}`}>
+                                        Profile
+                                        <i className="bi bi-person-square"/>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item d-flex justify-content-between" to={`orders/${state.auth.uid}`}>
+                                        My orders
+                                        <i className="bi bi-card-list"/>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item d-flex justify-content-between" to={`wishlist/${state.auth.uid}`}>
+                                        Wishlist
+                                        <i className="bi bi-bookmark-star"/>
+                                    </Link>
+                                </li>
+                                <li><hr className="dropdown-divider"/></li>
+                                <li>
+                                    <button className="dropdown-item d-flex justify-content-between" type='button' onClick={onLogout}>
+                                        Logout 
+                                        <i className="bi bi-box-arrow-in-right"/>
+                                    </button>
+                                </li>
+                            </Dropdown> 
+                        }
                     </div>
                 </div>
             </div>

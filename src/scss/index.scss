@@ -46,3 +46,36 @@
 .main-page-margin {
     margin: 75px auto;
 }
+
+#wrap-card {
+    div.card#center-card{
+        width: 400px;
+        margin: 35% auto;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .main-page-margin {
+        margin: 15% auto;
+    }
+    #wrap-card {
+        div.card#center-card-form {
+            width: 700px;
+            margin: 25% auto;
+        }
+    }
+}
+
+
+@media (min-width: 992px) {
+    .main-page-margin {
+        margin: 7.5% auto;
+    }
+    #wrap-card {
+        div.card#center-card-form {
+            width: 600px;
+            margin: 15% auto;
+        }
+    }
+}
