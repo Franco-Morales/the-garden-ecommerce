@@ -3,7 +3,7 @@ import React from 'react';
 import  "../scss/components/header.scss";
 
 
-function Header() {
+const Header = () => {
     return ( 
         <header id="header-home" className='shadow'>
             <div className='wrap-content'>
@@ -16,5 +16,6 @@ function Header() {
         </header>
     );
 }
+
 
 export default Header;

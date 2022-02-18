@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import GenericForm from '../components/GenericForm/Form';
@@ -46,7 +46,7 @@ const Register = () => {
       validations: {
         pattern: new RegExp(/[0-9]{2,4}[\s][0-9]{2,4}-[0-9]{2,4}/)
       }
-    },
+    }
   };
 
 
@@ -84,4 +84,4 @@ const Register = () => {
 }
 
 
-export default Register
+export default Register;

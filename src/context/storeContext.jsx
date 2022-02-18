@@ -27,10 +27,15 @@ function StoreContextProvider({ children }) {
     const [ state, dispatch ] = useReducer(rootReducer, initialState);
     
     useEffect( () => {
+        // obtener categorias
         getFromFirestore("categories")
             .then( resp => dispatch({ type: "ADD_CATEGORIES", payload: resp }))
             .catch( error => console.error(error));
 
+        // verifica en localstorage si existe el carrito
+        dispatch({ type: "CHECK_CART_STATE" });
+
+        // check del estado "auth" del usuario
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if(currentUser) {
                 const { email, displayName: name, uid } = currentUser;

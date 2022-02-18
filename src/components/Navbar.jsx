@@ -23,7 +23,7 @@ const Dropdown = ( props ) => {
 };
 
 
-function Navbar() {
+const Navbar = () => {
     const [navBar, setNavBar] = useState(true);
     const { state, dispatch } = useStore();
 
@@ -117,5 +117,6 @@ function Navbar() {
         </nav>
      );
 }
+
 
 export default Navbar;

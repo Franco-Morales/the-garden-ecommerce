@@ -8,7 +8,7 @@ import "../scss/components/card.scss";
 import TYPES from '../context/types';
 
 
-function CardProduct({ product }) {
+const CardProduct = ({ product }) => {
     const { dispatch } = useStore();
     
     let newPrice = +( product.price-(product.price*product.isOnSale?.discount/100) ).toFixed(2);

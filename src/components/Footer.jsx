@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../scss/components/footer.scss";
 
 
-function Footer() {
+const Footer = () => {
     return (  
         <footer className='bg-artichoke text-white'>
             <div className="container pt-5 pb-4">
@@ -43,5 +43,6 @@ function Footer() {
         </footer>
     );
 }
+
 
 export default Footer;

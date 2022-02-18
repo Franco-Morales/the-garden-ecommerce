@@ -1,10 +1,8 @@
-const persistInLocalStorage = (data) =>{
-    localStorage.setItem(`cart-${data.uid}`, JSON.stringify(data))
-}
+const persistCart = (cart) => localStorage.setItem( "cart", JSON.stringify( cart ) );
 
-const getFromLocalStorage = (key) => JSON.parse( localStorage.getItem(key) );
+const getFromLocalStorage = () => JSON.parse( localStorage.getItem( "cart" ) );
 
-const clearLocalStorage = () => localStorage.clear();
+const removeCart = () => localStorage.removeItem("cart");
 
 
-export { persistInLocalStorage, getFromLocalStorage, clearLocalStorage };
+export { persistCart, getFromLocalStorage, removeCart };
