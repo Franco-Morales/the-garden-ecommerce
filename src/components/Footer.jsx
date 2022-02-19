@@ -6,7 +6,7 @@ import "../scss/components/footer.scss";
 
 const Footer = () => {
     return (  
-        <footer className='bg-artichoke text-white'>
+        <footer className='bg-artichoke text-white mt-5'>
             <div className="container pt-5 pb-4">
                 <div className="row">
                     <div className="col-12 col-md-4">

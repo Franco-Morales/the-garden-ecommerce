@@ -4,9 +4,9 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import CartWidget from './CartWidget';
 
 import { useStore } from '../context/storeContext';
+import TYPES from '../context/types';
 
 import { logOut } from "../services/auth";
-import TYPES from '../context/types';
 
 
 const Dropdown = ( props ) => {
@@ -43,9 +43,7 @@ const Navbar = () => {
             setNavBar(true);
         }
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        }
+        return () => window.removeEventListener("scroll", handleScroll);
     },[location]);
 
 
@@ -83,7 +81,7 @@ const Navbar = () => {
                         { (Object.entries(state.auth).length === 0) ? 
                             <Link to="/login" className='btn btn-outline-blond ms-5'>Sign In</Link>
                             :
-                            <Dropdown text={state.auth.name} className="ms-5">
+                            <Dropdown text={state.auth.email} className="ms-5">
                                 <li>
                                     <Link className="dropdown-item d-flex justify-content-between" to={`profile/${state.auth.uid}`}>
                                         Profile

@@ -29,8 +29,8 @@ const ItemDetail = ({ product }) => {
 
     return (
         <div className="container main-page-margin" id="product-detail">
-            {
-                product ? (
+            { (Object.entries(product).length !== 1) ? 
+                (
                     <div className="row">
                         <div className="col-12 col-md-6 col-lg-8">
                             <img src={product.pictureUrl} alt={`${product.title}_image`} className="img-fluid" loading='lazy'/>

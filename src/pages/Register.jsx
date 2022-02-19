@@ -44,7 +44,7 @@ const Register = () => {
       label: "Phone",
       rowDisplay: 6,
       validations: {
-        pattern: new RegExp(/[0-9]{2,4}[\s][0-9]{2,4}-[0-9]{2,4}/)
+        pattern: "[0-9]{1,4}[\\s]{1}[0-9]{1,4}-[0-9]{1,4}"
       }
     }
   };

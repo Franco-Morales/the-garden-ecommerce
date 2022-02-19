@@ -4,9 +4,11 @@ import cartReducer, { cartState } from "./reducers/cart.reducer";
 import categoryReducer, { categoryState } from "./reducers/category.reduce";
 import authReducer, { authState } from "./reducers/auth.reducer";
 
-import { getFromFirestore } from "../services/firebaseSvc";
 import { onAuthStateChanged } from "firebase/auth";
+
 import { auth } from "../firebase.config";
+
+import { getFromFirestore } from "../services/firebaseSvc";
 
 
 const initialState = { ...cartState, ...categoryState, ...authState };
@@ -26,6 +28,7 @@ function StoreContextProvider({ children }) {
 
     const [ state, dispatch ] = useReducer(rootReducer, initialState);
     
+
     useEffect( () => {
         // obtener categorias
         getFromFirestore("categories")
@@ -46,6 +49,7 @@ function StoreContextProvider({ children }) {
 
         return () => unsubscribe();
     }, []);
+
 
     return (
         <storeContext.Provider value={{ state, dispatch }}>

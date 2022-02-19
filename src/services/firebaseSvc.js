@@ -13,6 +13,15 @@ const getProductsBySale = async () => {
     }
 }
 
+
+const getOrdersByUser = async (userId) => {
+    try {
+        return ( await getFromFirestore("orders") ).filter( el => el.buyer?.auth_id === userId);
+    } catch (error) {
+        console.error(`Firebase Service Error : ${error}`);
+    }
+}
+
 /**
  * Obtiene una colección, un documento dado un `uid` o filtrar una coleccion dado un arreglo.
  * 
@@ -60,7 +69,7 @@ const insertInFirestore = async (colt, data) => {
 
     const auxData = {
         ...data,
-        date: Timestamp.now()
+        date: Timestamp.fromDate( new Date() )
     }
 
     try {
@@ -75,4 +84,4 @@ const insertInFirestore = async (colt, data) => {
 }
 
 
-export { getFromFirestore, getProductsBySale, insertInFirestore };
+export { getFromFirestore, getProductsBySale, getOrdersByUser, insertInFirestore };

@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 
 const Loading = ({ isFullPage }) => {
-    let pageFormat = isFullPage? "pageFormat" : "itemFormat";
-    
     return (
-        <div id={ pageFormat }>
+        <div id={ isFullPage? "pageFormat" : "itemFormat" }>
             <div className="spinner-border text-leaf" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>

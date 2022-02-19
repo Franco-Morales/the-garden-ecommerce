@@ -46,6 +46,7 @@ const Profile = () => {
                     <p className="card-text">User : { userProfile.name } </p>
                     <p className="card-text">Email : { userProfile.email }</p>
                     <p className="card-text">Phone : { userProfile.phone }</p>
+                    <p className="card-text">Register date : { new Date(userProfile.date.seconds * 1000).toDateString() }</p>
                   </div>
                 </div>
               </div>

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+
 import Badge from './Badge';
 
 import { useStore } from '../context/storeContext';
+import TYPES from '../context/types';
 
 import "../scss/components/card.scss";
-import TYPES from '../context/types';
 
 
 const CardProduct = ({ product }) => {
@@ -41,7 +42,7 @@ const CardProduct = ({ product }) => {
                         ) 
                     }
                     {
-                        (product.stock === 0) && <Badge background={"danger"} otherClass={"ms-3"} display={"Sold"}/>
+                        (product.stock === 0) && <Badge background={"danger"} otherClass={"ms-3"} display={"Sold out"}/>
                     }
                 </h6>
             </div>

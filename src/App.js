@@ -13,7 +13,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from './pages/Profile';
 import Wishlist from './pages/Wishlist';
-import Orders from './pages/Orders';
+import Orders from './pages/Orders/OrdersContainer';
+import OrderDetailContainer from "./pages/OrderDetail/OrderDetailContainer";
 
 import About from "./pages/About";
 import Policy from './pages/Policy';
@@ -43,21 +44,30 @@ function App() {
             <Route path="/signup" element={ <Register /> } />
             
             <Route path="/profile/:userId" element={ 
-              <AuthGuard>
-                <Profile />
-              </AuthGuard>
-            } />
+                <AuthGuard>
+                  <Profile />
+                </AuthGuard>
+              } 
+            />
             <Route path="/wishlist/:userId" element={ 
-              <AuthGuard>
-                <Wishlist />
-              </AuthGuard>
-            } />
+                <AuthGuard>
+                  <Wishlist />
+                </AuthGuard>
+              } 
+            />
             <Route path="/orders/:userId" element={ 
-              <AuthGuard>
-                <Orders />
-              </AuthGuard>
-            } />
-
+                <AuthGuard>
+                  <Orders />
+                </AuthGuard>
+              } 
+            />
+            <Route path="/orders/:userId/order/:orderId" element={ 
+                <AuthGuard>
+                  <OrderDetailContainer />
+                </AuthGuard>
+              } 
+            />
+            
             <Route path="/about" element={ <About /> } />
             <Route path="/policy" element={ <Policy /> } />
             <Route path="*" element={ <Error404 /> } />

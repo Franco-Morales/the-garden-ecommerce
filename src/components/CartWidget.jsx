@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
 import { useStore } from "../context/storeContext";
 
 
@@ -21,4 +22,4 @@ const CartWidget = () => {
 }
 
 
-export default CartWidget
+export default CartWidget;
