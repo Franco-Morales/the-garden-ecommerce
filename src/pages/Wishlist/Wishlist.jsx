@@ -51,7 +51,7 @@ const Wishlist = ({ list, addToCart, removeItem }) => {
           </div>
         </div>
       </div>
-    )  : <EmptyResult text='Empty Wishlist'/>
+    ) : <EmptyResult text='Empty Wishlist'/>
 }
 
 

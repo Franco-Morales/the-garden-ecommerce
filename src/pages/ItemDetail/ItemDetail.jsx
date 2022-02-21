@@ -39,7 +39,7 @@ const WishlistActions = ({ product }) => {
         )
     } else {
         if(state.auth.uid && !existInWislist) {
-            // esta logueado y existe no existe en la wishlist
+            // esta logueado y no existe en la wishlist
             return (
                 <button className='btn btn-outline-leaf' type='button' onClick={onAddToWishlist}>
                     Add to wishlist
@@ -47,7 +47,7 @@ const WishlistActions = ({ product }) => {
                 </button>
             )
         } else if(state.auth.uid && existInWislist){
-            // esta logueado y existe existe en la wishlist
+            // esta logueado y existe en la wishlist
             return (
                 <Link to={`/wishlist/${state.auth.uid}`} className="btn btn-leaf">
                     Go to wishlist
@@ -72,8 +72,7 @@ const ItemDetail = ({ product }) => {
 
     const [ selectedItem, setSelectedItem ] = useState( false );
     
-
-    let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
+    let newPrice = +( product.price-(product.price*product.isOnSale?.discount/100) ).toFixed(2);
     
 
     const onAdd = (e, cantItems) => {

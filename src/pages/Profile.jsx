@@ -14,15 +14,18 @@ const Profile = () => {
   const [ userProfile, setUserProfile ] = useState(undefined);
 
 
-  useEffect(() => {
-
-    getFromFirestore("profiles", ["auth_id", "==", userId])
-      .then( resp => {
+  useEffect( () => {
+    const fetchProfile = async () => {
+      try {
+        const resp = await getFromFirestore("profiles", ["auth_id", "==", userId]);
         setUserProfile(resp[0]);
         setLoading(false);
-      })
-      .catch(error => console.error(error));
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
+    fetchProfile();
   }, [userId]);
 
 

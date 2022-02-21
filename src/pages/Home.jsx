@@ -27,6 +27,7 @@ const CardInfo = ({ info }) => {
     );
 }
 
+
 function Home() {
     let arrayCardsInfo = [
         { title: "High cuality products", Img: CualityIcon },
@@ -38,13 +39,19 @@ function Home() {
     const [ isLoading, setLoading ] = useState( true );
 
     useEffect(() => {
-        getProductsBySale()
-            .then( resp => { 
+        const fetchProducts = async () => {
+            try {
+                const resp = await getProductsBySale();
                 setProductSale(resp);
                 setLoading(false);
-            })
-            .catch( error => console.error(error));
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        
+        fetchProducts();
     }, [])
+
 
     return (  
         <>

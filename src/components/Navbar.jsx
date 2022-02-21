@@ -26,8 +26,26 @@ const Dropdown = ( props ) => {
 const Navbar = () => {
     const [navBar, setNavBar] = useState(true);
     const { state, dispatch } = useStore();
-
     const location = useLocation();
+
+    const profileLinks = [
+        {
+            link: "/profile",
+            LinkName: "Profile",
+            iconClass: "bi bi-person-square" 
+        },
+        {
+            link: "/orders",
+            LinkName: "My Orders",
+            iconClass: "bi bi-card-list" 
+        },
+        {
+            link: "/wishlist",
+            LinkName: "Wishlist",
+            iconClass: "bi bi-bookmark-star" 
+        }
+    ];
+
 
     const handleScroll = () => {
         let scrollDeviceWidth = ( window.innerWidth <= 450)? 100 : 200;
@@ -82,24 +100,16 @@ const Navbar = () => {
                             <Link to="/login" className='btn btn-outline-blond ms-5'>Sign In</Link>
                             :
                             <Dropdown text={state.auth.email} className="ms-5">
-                                <li>
-                                    <Link className="dropdown-item d-flex justify-content-between" to={`profile/${state.auth.uid}`}>
-                                        Profile
-                                        <i className="bi bi-person-square"/>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item d-flex justify-content-between" to={`orders/${state.auth.uid}`}>
-                                        My orders
-                                        <i className="bi bi-card-list"/>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item d-flex justify-content-between" to={`wishlist/${state.auth.uid}`}>
-                                        Wishlist
-                                        <i className="bi bi-bookmark-star"/>
-                                    </Link>
-                                </li>
+                                { 
+                                    profileLinks.map( ( el, index) => 
+                                        <li key={index}>
+                                            <Link className="dropdown-item d-flex justify-content-between" to={`${el.link}/${state.auth.uid}`}>
+                                                {el.LinkName}
+                                                <i className={el.iconClass}/>
+                                            </Link>
+                                        </li>
+                                    )
+                                }
                                 <li><hr className="dropdown-divider"/></li>
                                 <li>
                                     <button className="dropdown-item d-flex justify-content-between" type='button' onClick={onLogout}>

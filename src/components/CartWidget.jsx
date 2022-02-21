@@ -10,7 +10,8 @@ const CartWidget = () => {
     return (
         <NavLink className='nav-link position-relative' to={"/cart"}>
             <i className="bi bi-cart"></i>
-            { state.cart.length ? (   
+            { state.cart.length ? 
+                (   
                     <span className="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-moss">
                         { state.cart.reduce( (acc, el) => acc + el.quantity, 0 ) }
                         <span className="visually-hidden">cart length</span>

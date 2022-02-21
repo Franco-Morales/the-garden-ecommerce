@@ -9,7 +9,7 @@ function Error404() {
     let navigate = useNavigate();
 
 
-    const handleNAvigate = (e) => {
+    const handleNavigate = (e) => {
         e.preventDefault();
         navigate("/");
     }
@@ -23,7 +23,7 @@ function Error404() {
                 </div>
                 <div className="col-12">
                     <h1>¡ Page Not found !</h1>
-                    <button className="btn btn-amazon my-4" onClick={handleNAvigate}>Go back to Home Page</button>
+                    <button className="btn btn-amazon my-4" onClick={handleNavigate}>Go back to Home Page</button>
                 </div>
             </div>
         </div>

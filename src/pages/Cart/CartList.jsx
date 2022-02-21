@@ -29,6 +29,7 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
 
   const total = +auxCart.reduce( (acc, el) => acc+(el.quantity*el.item.price), 0 ).toFixed(2);
 
+
   const handleOrder = async () => {
     const buyer = await getFromFirestore("profiles",["auth_id","==",state.auth.uid]);
 

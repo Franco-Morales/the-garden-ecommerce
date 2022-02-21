@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import "../scss/pages/about.scss"
 
 
@@ -24,5 +23,6 @@ function About() {
         </div>
     );
 }
+
 
 export default About;

@@ -14,12 +14,17 @@ const OrderDetailContainer = () => {
 
 
   useEffect( () => {
-    getFromFirestore("orders",{ uid: orderId })
-      .then( resp => {
+    const fetchOrders = async () => {
+      try {
+        const resp = await getFromFirestore("orders",{ uid: orderId });
         setOrder(resp);
         setLoading(false);
-      })
-      .catch( error => console.error(error));
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchOrders()
   },[orderId])
 
   return isLoading ? <Loading /> : <OrderDetail order={order}/>
