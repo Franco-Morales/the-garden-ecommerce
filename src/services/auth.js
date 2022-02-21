@@ -13,7 +13,7 @@ const singUp = async (formData) => {
 
         await updateProfile(user, { displayName: name });
 
-        await insertInFirestore("profiles", { email, name, phone, auth_id: user.uid });
+        await insertInFirestore("profiles", { email, name, phone, auth_id: user.uid , wishlist: []});
     } catch (error) {
         console.error(`Firebase Auth -> ${error}`);
     }
@@ -37,4 +37,4 @@ const logOut = async () => {
 }
 
 
-export { singUp, logIn, logOut}
+export { singUp, logIn, logOut };

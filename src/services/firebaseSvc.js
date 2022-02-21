@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, Timestamp, where } from "firebase/firestore";
 
 
 /**
@@ -21,6 +21,7 @@ const getOrdersByUser = async (userId) => {
         console.error(`Firebase Service Error : ${error}`);
     }
 }
+
 
 /**
  * Obtiene una colección, un documento dado un `uid` o filtrar una coleccion dado un arreglo.
@@ -84,4 +85,17 @@ const insertInFirestore = async (colt, data) => {
 }
 
 
-export { getFromFirestore, getProductsBySale, getOrdersByUser, insertInFirestore };
+const updateInFirestore = async (colt, id, data) => {
+    const db = getFirestore();
+
+    try {
+        const ref = doc(db, colt, id);
+        await setDoc(ref, data, { merge: true });
+        return true;
+    } catch (error) {
+        console.error(`Firebase Service -> ${error}`);
+    }
+}
+
+
+export { getFromFirestore, getProductsBySale, getOrdersByUser, insertInFirestore, updateInFirestore };

@@ -9,11 +9,69 @@ import { useStore } from '../../context/storeContext';
 import TYPES from "../../context/types";
 
 import  "../../scss/pages/itemDetail.scss";
+import { addTowishlist } from '../../services/userSvc';
+
+
+const WishlistActions = ({ product }) => {
+    const { state } = useStore();
+
+    const [ existInWislist, setExistInWishlist ] = useState(product.inWishlist);
+    const [ isLoading, setLoading ] = useState(false);
+
+
+    const onAddToWishlist = async (e) => {
+        e.preventDefault();
+
+        setLoading(prevState => !prevState);
+
+        await addTowishlist(state.auth.uid, product.uid);
+        setExistInWishlist(true);
+
+        setLoading(prevState => !prevState);
+    }
+
+
+    if(isLoading) {
+        return (
+            <button className="btn btn-leaf" type="button" disabled>
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+        )
+    } else {
+        if(state.auth.uid && !existInWislist) {
+            // esta logueado y existe no existe en la wishlist
+            return (
+                <button className='btn btn-outline-leaf' type='button' onClick={onAddToWishlist}>
+                    Add to wishlist
+                    <i className="ms-3 bi bi-bookmark-star"/>
+                </button>
+            )
+        } else if(state.auth.uid && existInWislist){
+            // esta logueado y existe existe en la wishlist
+            return (
+                <Link to={`/wishlist/${state.auth.uid}`} className="btn btn-leaf">
+                    Go to wishlist
+                    <i className="ms-3 bi bi-bookmark-star-fill"/>
+                </Link>
+            )
+        } else {
+            // no esta logueado
+            return (
+                <Link to="/login" className='btn btn-outline-primary'>
+                    Login to add to wishlist
+                    <i className="ms-3 bi-box-arrow-in-right"/>
+                </Link>
+            )
+        }
+    }
+}
 
 
 const ItemDetail = ({ product }) => {
     const { dispatch } = useStore();
+
     const [ selectedItem, setSelectedItem ] = useState( false );
+    
 
     let newPrice = product.price-(product.price*product.isOnSale?.discount/100);
     
@@ -27,6 +85,7 @@ const ItemDetail = ({ product }) => {
         });
     }
 
+    
     return (
         <div className="container main-page-margin" id="product-detail">
             { (Object.entries(product).length !== 1) ? 
@@ -59,7 +118,7 @@ const ItemDetail = ({ product }) => {
                             <section id="product-actions">
                                 {
                                     ( selectedItem )? 
-                                        <div className='d-grid gap-3 d-md-flex justify-content-md-center' id="finish-action">
+                                        <div className='d-grid gap-3 d-md-flex justify-content-md-center mt-5 mb-3' id="finish-action">
                                             <Link className="btn btn-outline-artichoke" to={"/products"}>
                                                 <i className="bi bi-arrow-bar-left me-2" />
                                                 See more products
@@ -72,6 +131,9 @@ const ItemDetail = ({ product }) => {
                                         <ItemCount stock={product.stock} initial={1} onAdd={onAdd}/>
                                         
                                 }
+                                <div className="d-grid">
+                                    <WishlistActions product={product} />
+                                </div>
                             </section>
                         </div>
                     </div>

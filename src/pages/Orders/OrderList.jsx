@@ -7,9 +7,12 @@ const OrderList = ({ orders }) => {
   return ( orders.length ?
     <div className="container mb-5">
         <div className="row">
-            <div className="col-12 mb-4">
+            <div className="col-12">
                 <h1>My orders</h1>
             </div>
+        </div>
+        <hr />
+        <div className="row">
             <div className="col-12">
                 <table className="table">
                     <thead className="table-dark">

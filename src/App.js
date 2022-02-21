@@ -12,7 +12,7 @@ import CartContainer from "./pages/Cart/CartContainer";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from './pages/Profile';
-import Wishlist from './pages/Wishlist';
+import WishlistContainer from './pages/Wishlist/WishlistContainer';
 import Orders from './pages/Orders/OrdersContainer';
 import OrderDetailContainer from "./pages/OrderDetail/OrderDetailContainer";
 
@@ -37,7 +37,7 @@ function App() {
             <Route exact path="/" element={ <Home /> } />
             <Route path="/products" element= { <ItemListContainer /> } />
             <Route path="/category/:cid" element={ <ItemListContainer /> } />
-            <Route path="/product/:uid" element={ <ItemDetailContainer /> } />
+            <Route path="/product/:prodId" element={ <ItemDetailContainer /> } />
             <Route path="/cart" element={ <CartContainer /> } />
 
             <Route path="/login" element={ <Login /> } />
@@ -51,7 +51,7 @@ function App() {
             />
             <Route path="/wishlist/:userId" element={ 
                 <AuthGuard>
-                  <Wishlist />
+                  <WishlistContainer />
                 </AuthGuard>
               } 
             />
