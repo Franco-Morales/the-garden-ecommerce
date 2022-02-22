@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 // components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -8,12 +10,12 @@ import Home from './pages/Home';
 import ItemListContainer from "./pages/ItemList/ItemListContainer";
 import ItemDetailContainer from "./pages/ItemDetail/ItemDetailContainer";
 import CartContainer from "./pages/Cart/CartContainer";
-
+// auth
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from './pages/Profile';
 import WishlistContainer from './pages/Wishlist/WishlistContainer';
-import Orders from './pages/Orders/OrdersContainer';
+import OrdersContainer from './pages/Orders/OrdersContainer';
 import OrderDetailContainer from "./pages/OrderDetail/OrderDetailContainer";
 
 import About from "./pages/About";
@@ -57,7 +59,7 @@ function App() {
             />
             <Route path="/orders/:userId" element={ 
                 <AuthGuard>
-                  <Orders />
+                  <OrdersContainer />
                 </AuthGuard>
               } 
             />
@@ -73,6 +75,7 @@ function App() {
             <Route path="*" element={ <Error404 /> } />
           </Routes>
         <Footer />
+        <ToastContainer pauseOnHover hideProgressBar autoClose={1500} />
       </StoreContextProvider>
     </Router>
   );

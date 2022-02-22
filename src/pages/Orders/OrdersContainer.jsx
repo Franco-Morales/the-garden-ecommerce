@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import Loading from "../../components/Loading";
+import OrderList from './OrderList';
 
 import { useStore } from "../../context/storeContext";
 
 import { getOrdersByUser } from "../../services/firebaseSvc";
-import OrderList from './OrderList';
 
 
 const OrdersContainer = () => {
@@ -15,13 +17,18 @@ const OrdersContainer = () => {
 
 
   useEffect( () => {
-    getOrdersByUser(state.auth?.uid)
-      .then( resp => {
+    const fetchUserOrders = async () => {
+      try {
+        const resp = await getOrdersByUser(state.auth?.uid);
         setOrderList(resp);
         setLoading(false);
-      })
-      .catch(error => console.error(error))
-  },[ state.auth?.uid ])
+      } catch (error) {
+        toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
+      }
+    }
+
+    fetchUserOrders();
+  },[ state.auth ])
 
 
   return ( isLoading ? 

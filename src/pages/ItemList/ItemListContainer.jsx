@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import ItemList from "./ItemList";
 import Loading from "../../components/Loading";
@@ -14,15 +15,22 @@ function ProductList() {
     const { cid } = useParams();
 
     useEffect(() => {
-        let filter = (cid) && ["category","==",cid];
-        
-        getFromFirestore("products", filter)
-            .then( resp => {
+
+        const fetchProducts = async () => {
+            let filter = (cid) && ["category","==",cid];
+
+            try {
+                const resp = await getFromFirestore("products", filter);
+
                 setData(resp);
                 setLoading(false);
-            })
-            .catch( error => console.error(error) );
+
+            } catch (error) {
+                toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
+            }
+        }
         
+        fetchProducts();
     }, [cid]);
 
     return (

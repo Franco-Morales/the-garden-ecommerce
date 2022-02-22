@@ -7,6 +7,7 @@ import { useStore } from '../context/storeContext';
 import TYPES from '../context/types';
 
 import { logOut } from "../services/auth";
+import { toast } from 'react-toastify';
 
 
 const Dropdown = ( props ) => {
@@ -66,7 +67,10 @@ const Navbar = () => {
 
 
     const onLogout = async () => {
-        await logOut();
+        let { status, message } = await logOut();
+
+        toast[status](message, { theme: "colored", position: "bottom-right"});
+
         dispatch({ type: TYPES.logout });
         dispatch({ type: TYPES.clear });
     }
@@ -123,7 +127,7 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
-     );
+    )
 }
 
 

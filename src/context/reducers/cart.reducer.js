@@ -39,13 +39,13 @@ const cartReducer = (state, action) => {
                     if(payload.item?.uid === el.item?.uid) {
                         return {
                             ...el,
-                            quantity: el.quantity+1
+                            quantity: el.quantity+payload.quantity
                         }
                     }
                     return el;
                 })
-            : 
-               [ ...state.cart, payload]
+                : 
+                [...state.cart, payload]
             
             persistCart(newCart);
 

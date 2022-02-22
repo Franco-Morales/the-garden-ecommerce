@@ -1,5 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import ItemDetail from "./ItemDetail";
 import Loading from "../../components/Loading";
@@ -32,7 +33,7 @@ function ItemDetailContainer() {
                 setProduct({ ...resp, inWishlist: existItem });
                 setLoading(false);
             } catch (error) {
-                console.error("error en detail container");
+                toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
             }
         }
 

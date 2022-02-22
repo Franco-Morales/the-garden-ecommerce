@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Loading from '../components/Loading';
 
 import { getFromFirestore } from '../services/firebaseSvc';
 
-import AsideImg from "../assets/images/abs_background_green.jpg"
-import "../scss/pages/profile.scss"
+import "../scss/pages/profile.scss";
+import AsideImg from "../assets/images/abs_background_green.jpg";
+
 
 const Profile = () => {
   const { userId } = useParams();
@@ -21,7 +23,7 @@ const Profile = () => {
         setUserProfile(resp[0]);
         setLoading(false);
       } catch (error) {
-        console.error(error)
+        toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
       }
     }
 

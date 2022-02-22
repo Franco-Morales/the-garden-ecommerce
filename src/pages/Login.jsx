@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import GenericForm from '../components/GenericForm/Form';
 
@@ -35,9 +36,12 @@ const Login = () => {
       [key]: values[key].value
     }), {});
 
-    await logIn(formValues);
+    let { status, message } = await logIn(formValues);
+    
+    toast[status](message, { theme: "colored", position: "bottom-right"});
+    
     // volver una página anteriror == -1
-    navigate(-1);
+    ( status === "success") && navigate(-1);
   }
 
 

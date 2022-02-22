@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Loading from "../../components/Loading";
 import OrderDetail from "../OrderDetail/OrderDetail";
@@ -20,7 +21,7 @@ const OrderDetailContainer = () => {
         setOrder(resp);
         setLoading(false);
       } catch (error) {
-        console.error(error)
+        toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
       }
     }
 

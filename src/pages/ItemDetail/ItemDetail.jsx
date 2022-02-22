@@ -110,6 +110,7 @@ const ItemDetail = ({ product }) => {
                                 {
                                     (product.stock === 0) && <Badge background={"danger"} display={"Sold"} otherClass={"ms-3"}/>
                                 }
+                                <p className="my-3">Stock : <span className={`text-${product.stock? "success":"danger"}`}>{product.stock}</span></p>
                                 <hr />
 
                                 <p>{product.description}</p>

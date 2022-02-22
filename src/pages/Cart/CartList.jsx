@@ -1,60 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import CartItem from './CartItem';
 
 import { useStore } from "../../context/storeContext";
 import TYPES from '../../context/types';
 
 import { getFromFirestore, insertInFirestore } from '../../services/firebaseSvc';
-import { updateStock } from '../../services/stockSvc';
+import { checkStock, updateStock } from '../../services/stockSvc';
 
 import "../../scss/pages/cart.scss";
 
 
 const CartList = ({ cart, onRemoveItem, onClearCart }) => {
   const { state, dispatch } = useStore();
+  const [ processOrder, setProcessOrder ] = useState(false);
 
-  let auxCart = cart.map( (el) => {
-    if(el.item.isOnSale.flag) {
-      return {
-        quantity: el.quantity,
-        item : {
-          ...el.item,
-          price: +(el.item.price-el.item.price*el.item.isOnSale.discount/100).toFixed(2)
-        }
-      }
-    }
-    return el;
+  let auxCart = cart.map( cartItem => {
+    return (cartItem.item?.isOnSale.flag) ? 
+      {
+        quantity: cartItem.quantity,
+          item : {
+            ...cartItem.item,
+            price: +(cartItem.item.price-cartItem.item.price*cartItem.item.isOnSale.discount/100).toFixed(2)
+          }
+      } : cartItem
   });
 
-  const total = +auxCart.reduce( (acc, el) => acc+(el.quantity*el.item.price), 0 ).toFixed(2);
+  const total = +auxCart.reduce( (acc, cartItem) => acc+(cartItem.quantity*cartItem.item.price), 0 ).toFixed(2);
 
 
   const handleOrder = async () => {
-    const buyer = await getFromFirestore("profiles",["auth_id","==",state.auth.uid]);
+    setProcessOrder(true);
 
-    const order = {
-      buyer: buyer[0],
-      items: auxCart.map( el => ({
-          uid: el.item.uid,
-          title: el.item.title,
-          price: el.item.price,
-          quantity: el.quantity
-        })
-      ),
-      total: total
-    }
+    let itemsOrder = auxCart.map( el => ({
+        uid: el.item.uid,
+        title: el.item.title,
+        price: el.item.price,
+        quantity: el.quantity
+      })
+    );
 
     try {
-      const savedOrderId = await insertInFirestore("orders", order);
-      alert(`Su orden numero ${savedOrderId}`);
+      // items = items whitout stock
+      let { status, message } = await checkStock(itemsOrder);
 
-      dispatch({ type: TYPES.clear });
+      toast[status](message, { theme: "colored", position: "bottom-right" });
 
-      await updateStock(order.items);
+      if( status === "success") {
+        const buyer = await getFromFirestore("profiles",["auth_id","==",state.auth.uid]);
+        const order = {
+          buyer: buyer[0],
+          items: itemsOrder,
+          total: total
+        }
+
+        const savedOrderId = await insertInFirestore("orders", order);
+
+        await updateStock(itemsOrder);
+
+        toast.info(`Order saved with id ${savedOrderId}`, { position: "bottom-right" });
+
+        dispatch({ type: TYPES.clear });
+        
+      }
 
     } catch (error) {
-      console.error(error);
+      toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
     }
   }
 
@@ -101,7 +114,7 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
             { (Object.entries(state.auth).length === 0) ?
               <Link to="/login" className='btn btn-outline-primary'> Sign In </Link>
               :
-              <button className="btn btn-outline-amazon" onClick={handleOrder} >
+              <button className="btn btn-outline-amazon" onClick={handleOrder} disabled={processOrder}>
                 Order
               </button>
             }

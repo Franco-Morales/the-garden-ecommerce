@@ -14,8 +14,16 @@ const singUp = async (formData) => {
         await updateProfile(user, { displayName: name });
 
         await insertInFirestore("profiles", { email, name, phone, auth_id: user.uid , wishlist: []});
+
+        return {
+            status: "success",
+            message: "Success sign up"
+        }
     } catch (error) {
-        console.error(`Firebase Auth -> ${error}`);
+        return {
+            status: "error",
+            message: getErrorMessage(error.code)
+        }
     }
 }
 
@@ -23,17 +31,47 @@ const logIn = async (formData) => {
     try {
         let { userEmail: email, userPwd: password } = formData;
         await signInWithEmailAndPassword(auth, email, password);
+
+        return {
+            status: "success",
+            message: "Success login"
+        }
     } catch (error) {
-        console.error(`Firebase Auth -> ${error}`);
+        return {
+            status: "error",
+            message: getErrorMessage(error.code)
+        }
     }
 }
 
 const logOut = async () => {
     try {
         await signOut(auth);
+        return {
+            status: "success",
+            message: "Logout"
+        }
     } catch (error) {
-        console.error(`Firebase Auth -> ${error}`);
+        return {
+            status: "error",
+            message: getErrorMessage(error.code)
+        }
     }
+}
+
+
+const getErrorMessage = (firebaseErrorCode = "defualt") => {
+    const errorMessage = {
+        'auth/user-not-found': "User not found",
+        'auth/invalid-email': "Invalid email format",
+        'auth/wrong-password': "Incorrect password",
+        'auth/email-already-in-use': "Email already in use",
+        'auth/too-many-requests': "Try later",
+        'auth/requires-recent-login': "Require sign in",
+        'default': "Server error"
+    }
+
+    return errorMessage[firebaseErrorCode];
 }
 
 

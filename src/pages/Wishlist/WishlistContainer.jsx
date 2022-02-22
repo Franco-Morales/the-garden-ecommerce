@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Wishlist from "./Wishlist";
 import Loading from '../../components/Loading';
 
 import { useStore } from "../../context/storeContext";
 import TYPES from "../../context/types";
-
 
 import { getWishlist, removeFromWishlist } from '../../services/userSvc';
 
@@ -40,7 +40,7 @@ const WishlistContainer = () => {
 
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
       }
     },
     [state.auth]

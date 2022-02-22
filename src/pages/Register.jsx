@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import GenericForm from '../components/GenericForm/Form';
 
@@ -58,9 +59,11 @@ const Register = () => {
       [key]: values[key].value
     }), {});
 
-    await singUp(formValues);
+    let { status, message } = await singUp(formValues);
     
-    navigate("/");
+    toast[status](message, { theme: "colored", position: "bottom-left"});
+    
+    (status === "success") && navigate("/");
   }
 
 
