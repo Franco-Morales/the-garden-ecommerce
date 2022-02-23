@@ -1,10 +1,30 @@
 # The Garden Ecommerce
 
-Proyecto final para el curso de React.js de CoderHouse
+Proyecto final para el curso de React.js de CoderHouse.
+
+E-commerce basado en la venta de plantas, macetas y semillas.
 
 
-### Rutas del proyecto
+## Dependecias del proyecto
 
+#### Estilos
+- **Bootstrap** : v5.1.3
+    - Librería de estilos.
+- **Sass** : v1.45.0 
+    - Para optimazar y custumizar Bootstrap.
+
+#### Desarrollo
+- **Firebase** : v9.6.6
+    - Gestionar colecciones en Firestore y cuentas de usuario con el módulo Auth.
+- **React Router Dom** : v6.2.1
+    - Mejorar la navegabilidad entre componentes, control de parametros en las url.
+- **React** toastify: v8.2.0
+    - Mejorar la experiencía del usuario para notificarlo de cambios de estado.
+
+
+
+## Rutas del proyecto
+Rutas que no requieren de autenticación
 * Home
 ```
 /
@@ -19,7 +39,19 @@ Proyecto final para el curso de React.js de CoderHouse
 ```
 * Detalle producto
 ```
-/product/:uid
+/product/:prodId
+```
+* Carrito
+```
+/cart
+```
+* Inicio de Sesión
+```
+/login
+```
+* Registro de usuario
+```
+/signup
 ```
 * About
 ```
@@ -29,18 +61,44 @@ Proyecto final para el curso de React.js de CoderHouse
 ```
 /policy
 ```
-
-### Service
-
-La ejecución del método `resolve` de la `Promise` está sujeto a un número aleatorio ([Ver](https://github.com/Franco-Morales/the-garden-ecommerce/blob/main/src/services/mockData.js)). Para los casos en que se ejecute `reject` se mostrará un componente con un spinner para simular la carga. Caso contrario se verá la lista o item solicitado.
-
-### useReducer
-
-Documentación utilizada: [React useReducer](https://es.reactjs.org/docs/hooks-reference.html#usereducer)
-* state
+* Pág. 404
 ```
-{
-    cart: []
+*
+```
+
+Rutas que requieren autenticación
+* Perfil del usuario
+```
+/profile/:userId
+```
+* Wishlist
+```
+/wishlist/:userId
+```
+* Lista de pedidos
+```
+/orders/:userId
+```
+* Detalle del pedido
+```
+/orders/:userId/order/:orderId
+```
+
+## Gestion de estado global
+
+La gestion de estado se realiza mediante `useReducer` y tres `reducers` uno para cada estado, junto a `Context API` ( React ).
+```javascript
+state: {
+    cart: [],
+    categories: [],
+    aut: {}
 }
-```
-El componente `Item.jsx` realiza la accion de agregar elementos al carrito, en la vista `/cart`, se puede ver el estado de carrito.
+``` 
+## Demo 
+
+Cuenta de prueba :
+- **Email** : user@user.com
+- **Password** : user1234
+
+
+Link de la app web : https://cranky-bell-2fefda.netlify.app/
