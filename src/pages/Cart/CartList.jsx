@@ -53,6 +53,7 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
         const order = {
           buyer: buyer[0],
           items: itemsOrder,
+          state: "Generated",
           total: total
         }
 
@@ -63,8 +64,9 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
         toast.info(`Order saved with id ${savedOrderId}`, { position: "bottom-right" });
 
         dispatch({ type: TYPES.clear });
-        
       }
+      
+      setProcessOrder(false);
 
     } catch (error) {
       toast.error("Something went wrong. Try later", { theme: "dark", position: 'bottom-right' });
@@ -114,7 +116,7 @@ const CartList = ({ cart, onRemoveItem, onClearCart }) => {
             { (Object.entries(state.auth).length === 0) ?
               <Link to="/login" className='btn btn-outline-primary'> Sign In </Link>
               :
-              <button className="btn btn-outline-amazon" onClick={handleOrder} disabled={processOrder}>
+              <button className="btn btn-amazon" onClick={handleOrder} disabled={processOrder}>
                 Order
               </button>
             }

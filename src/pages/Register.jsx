@@ -61,7 +61,7 @@ const Register = () => {
 
     let { status, message } = await singUp(formValues);
     
-    toast[status](message, { theme: "colored", position: "bottom-left"});
+    toast[status](message, { theme: "colored", position: "bottom-right"});
     
     (status === "success") && navigate("/");
   }

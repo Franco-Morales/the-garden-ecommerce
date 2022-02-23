@@ -8,13 +8,6 @@ import Svg404 from '../assets/images/p_404.svg';
 function Error404() {
     let navigate = useNavigate();
 
-
-    const handleNavigate = (e) => {
-        e.preventDefault();
-        navigate("/");
-    }
-
-
     return ( 
         <div className="container" id="p-404">
             <div className="row">
@@ -23,7 +16,7 @@ function Error404() {
                 </div>
                 <div className="col-12">
                     <h1>¡ Page Not found !</h1>
-                    <button className="btn btn-amazon my-4" onClick={handleNavigate}>Go back to Home Page</button>
+                    <button className="btn btn-amazon my-4" onClick={() => navigate("/")}>Go back to Home Page</button>
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@ const OrderList = ({ orders }) => {
                             <th scope="col">Order ID</th>
                             <th scope="col">Buyer</th>
                             <th scope="col">Time</th>
+                            <th scope='col'>State</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@ const OrderList = ({ orders }) => {
                                     <th scope="row">{order.uid}</th>
                                     <td>{order.buyer?.name}</td>
                                     <td>{new Date(order.date.seconds * 1000).toDateString()}</td>
+                                    <td>{order.state}</td>
                                     <td>
                                         <Link to={`order/${order.uid}`} className="btn btn-moss">See Order</Link>
                                     </td>
